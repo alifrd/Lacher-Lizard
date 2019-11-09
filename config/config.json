@@ -1,0 +1,18 @@
+{
+    "ProjectName" : "test1",
+    "URL" : "http://arsenal.ir/",
+    "Setting" : { 
+        "Mode" : "FAST" ,
+        "MiddleWare" : "NORMAL"
+    },
+    "ThreadNumber" : 16,
+    "SQLMAP" : {
+        "threads" : "10",
+        "timeout" : "15",
+        "answer" : "keep testing=Y,sitemap=Y,skip further tests=N",
+        "_COMMNET" : "thread : number of active thread for sqlmap(max 10) | timeout : dead time request for sqlmap | answer : defualt answer for more qeustions"
+    },
+    "_COMMNET" : "Mode : SLOW or FAST  |  MiddleWare : NORMAL or PROXT or SOCKS"
+}
+
+

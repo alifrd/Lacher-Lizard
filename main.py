@@ -5,15 +5,20 @@ from domain import *
 from general import *
 import requests
 
-PROJECT_NAME = 'varzesh slow mode'
-HOMEPAGE = 'https://www.tarafdari.com/'
+with open('./config/config.json', 'r') as myfile:
+    data=myfile.read()
+    config = json.loads(data)
+
+PROJECT_NAME = config['ProjectName']
+HOMEPAGE = config['URL']
+MODE = config['Setting']['Mode']
+MIDDLE_WARE = config['Setting']['MiddleWare']
 DOMAIN_NAME = get_domain_name(HOMEPAGE)
-MODE = 'SLOW'
 QUEUE_FILE = PROJECT_NAME + '/queue.txt'
 CRAWLED_FILE = PROJECT_NAME + '/crawled.txt'
-NUMBER_OF_THREADS = 16
+NUMBER_OF_THREADS = config['ThreadNumber']
 queue = Queue()
-Spider(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME , MODE)
+Spider(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME , MODE , MIDDLE_WARE)
 
 
 # Create worker threads (will die when main exits)

@@ -73,10 +73,3 @@ def getpattern(urlpath,flag):
                 
     
     return sign[1:],pattern
-
-            
-            
-            
-                
-
-        
