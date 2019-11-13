@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+=begin
+    Copyright 2010-2017 Sarosys LLC <http://www.sarosys.com>
+
+    This file is part of the Arachni Framework project and is subject to
+    redistribution and commercial restrictions. Please see the Arachni Framework
+    web site for more information on licensing and terms of use.
+=end
+
+$LOAD_PATH.unshift( File.expand_path( File.dirname( __FILE__ ) + '/../lib' ) )
+
+require 'arachni'
+require_relative '../ui/cli/output'
+
+include Arachni
+include Utilities
+include UI::Output
+
+if ARGV.empty?
+    puts <<EOHELP
+#{BANNER}
+
+Usage: #{__FILE__} SCRIPT
+
+Pre-loads Arachni's libraries and loads and runs a Ruby script.
+
+(Call the 'mute' method to mute system output.)
+EOHELP
+    exit
+end
+
+load ARGV.shift

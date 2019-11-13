@@ -1,0 +1,43 @@
+<% if @scan.overview? %>
+    <div id="scan-description" class="lead">
+        Overview
+    </div>
+<% else %>
+
+    <% has_errors = true %>
+    <% if @scan.errors.empty? %>
+        <div id="scan-description" class="lead">
+            <%= m @scan.description %>
+        </div>
+
+        <% has_errors = false %>
+    <% end %>
+
+    <div id="scan-description-form" class="hide">
+        <%= simple_form_for( @scan, remote: true ) do |f| %>
+            <%= f.error_notification %>
+
+            <%= f.input :description, label: false,
+                        hint: 'You can use Markdown for text formatting.' %>
+
+            <span id="posting-form-spinner" class="hide">
+                            <i class="icon-spinner icon-spin"></i>
+                        </span>
+            <%= f.button :submit, value: 'Save', class: 'btn btn-inverse btn-small' %>
+
+            <a href="#" class="btn btn-mini" id="cancel-description-edit-btn">
+                Cancel
+            </a>
+        <% end %>
+    </div>
+
+    <% if has_errors %>
+        <script type="text/javascript">
+            $('#scan-description-form' ).show();
+        </script>
+    <% end %>
+
+    <a href="#" class="btn btn-inverse btn-mini" id="edit-description-btn">
+        Edit description
+    </a>
+<% end %>

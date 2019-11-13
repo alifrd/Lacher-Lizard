@@ -1,0 +1,124 @@
+<% if @scan.finished? %>
+    <% if !@scan.error? %>
+
+        <% if !@scan.overview? %>
+            <% report_type = nil %>
+
+            <% if @scan.aborted? %>
+
+                <% report_type = 'partial' %>
+                <p class="alert alert-warning">
+                  <i class="icon-stop"></i>
+
+                The scan was aborted after
+            <% else %>
+                <% report_type = 'full' %>
+
+                <p class="alert alert-success">
+                    <i class="icon-ok"></i>
+
+                    The scan completed in
+            <% end %>
+
+            <%= @scan.delta_time %>
+
+            <% if @scan.timed_out? %>
+                , due to a configured timeout
+            <% end %>
+
+            .
+            </p>
+
+            <% if @scan.report %>
+                <% reports_links = reports_with_outfile.
+                        map do |shortname, (n, desc)|
+                            link_to n, report_scan_path( format: shortname ),
+                                    rel: 'tooltip', title: desc, data: { 'no-turbolink' => true }
+                        end
+                %>
+
+                <p class="alert alert-info visible-phone">
+                    Download the <%= report_type %> report as
+                    <%= reports_links[0...-1].join( ', ' ).html_safe %> or
+                    <%= reports_links.last %>.
+                </p>
+
+            <% else %>
+                <p class="alert alert-error">
+                    The full report for this scan could not be retrieved due to an unknown error.
+                </p>
+            <% end %>
+
+            <hr/>
+        <% end %>
+
+        <script type="text/javascript">
+            $( 'li#download-report' ).fadeIn( 'slow' );
+        </script>
+
+    <% else %>
+        <p class="alert alert-error">
+            The scan could no longer be monitored because connection with the Instance was lost.
+            The Instance has probably encountered a fatal error and stopped.
+        </p>
+
+        <script type="text/javascript">
+            $( 'li#download-report' ).hide( );
+        </script>
+    <% end %>
+
+    <script type="text/javascript">
+        window.setupScanCallbacks();
+
+        $( '#issues' ).show();
+        $( '#scan-sidebar' ).show();
+        $( 'li#toggle-statistics' ).fadeOut( 'slow' );
+        $( 'li#toggle-charts' ).fadeIn( 'slow' );
+    </script>
+
+<% else %>
+
+    <% if @scan.initializing? || @scan.starting? %>
+        <p class="alert alert-info">
+            <i class="icon-spinner icon-spin"></i>
+            The scan is <%= @scan.status %>, please wait...
+        </p>
+    <% elsif @scan.scheduled? && @scan.schedule.start_at? %>
+        <p class="alert alert-info">
+            <i class="icon-calendar"></i>
+            This scan has been scheduled for <%= l @scan.schedule.start_at %>
+            (<%= @scan.schedule.start_at.zone %>) and will run in
+            <%= distance_of_time_in_words_to_now @scan.schedule.start_at %>.
+        </p>
+    <% elsif @scan.aborted? || @scan.finished? %>
+        <p class="alert alert-info">
+            <i class="icon-spinner icon-spin"></i>
+            Cleaning up and retrieving the report, please wait...
+        </p>
+    <% else %>
+        <p class="alert alert-warning">
+            <i class="icon-warning-sign"></i>
+            This scan is in limbo, its scheduling options have been removed.
+        </p>
+    <% end %>
+
+    <% if @scan.messages.any? %>
+        <div class="alert alert-info">
+            <ul>
+              <% @scan.messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <script type="text/javascript">
+        window.setupScanCallbacks();
+
+        $( '#edit-description-btn' ).hide();
+        $( '#issues' ).hide();
+        $( '#scan-sidebar' ).show();
+        $( 'li#toggle-statistics' ).fadeOut( 'slow' );
+        $( 'li#toggle-charts' ).fadeOut( 'slow' );
+    </script>
+<% end %>

@@ -1,0 +1,38 @@
+<%
+refresh = true if !local_assigns.include?( :refresh )
+%>
+
+<% if refresh %>
+<div id="comments-list"
+
+     data-refresh-url="<%= list_url %>"
+     data-refresh-rate="<%= HardSettings.comments_refresh_rate %>"
+
+>
+<% end %>
+
+    <% if comments.any? %>
+        <% comments.each do |comment| %>
+        <div class="comment jumptarget" id="comment-<%= comment.id %>">
+            <p>
+                <% if comment.user == current_user %>
+                    <span class="label">You:</span>
+                <% else %>
+                    <%= link_to comment.user, user_path( comment.user ) %>:
+                <% end %>
+            </p>
+
+            <blockquote>
+                <%= m comment.text.to_s %>
+                <small><em><%= l comment.created_at %></em></small>
+            </blockquote>
+        </div>
+        <% end %>
+    <% else %>
+        <p class="alert alert-info">No comments yet.</p>
+    <% end %>
+
+<% if refresh %>
+</div>
+<% end %>
+

@@ -1,0 +1,271 @@
+<%= link_to "Arachni v#{Arachni::VERSION}  - WebUI v#{ArachniWebui::Application::VERSION}", root_path, class: 'brand' %>
+
+<% if user_signed_in? %>
+
+    <div id="phone-menu" class="nav visible-phone">
+        <a class="btn btn-navbar dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <%= link_to scans_path, class: 'dropdown-toggle disabled', data: { toggle: 'dropdown' } do %>
+                    Scans
+
+                    <% if (scan_acount = current_user.scans.active.count) > 0 %>
+                        <span id="active-scan-counter" class="label"><%= scan_acount %></span>
+                    <% end %>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to profiles_path, class: 'dropdown-toggle disabled', data: { toggle: 'dropdown' } do %>
+                    Profiles
+                <% end %>
+            </li>
+            <li class="dropdown">
+                <%= link_to dispatchers_path, class: 'dropdown-toggle disabled', data: { toggle: 'dropdown' } do %>
+                    Dispatchers
+                <% end %>
+            </li>
+            <% if can? :read, User %>
+                <li>
+                    <%= link_to users_path, class: 'dropdown-toggle disabled', data: { toggle: 'dropdown' } do %>
+                        Users
+                    <% end %>
+                </li>
+            <% end %>
+            <% if can? :read, Setting %>
+                <li><%= link_to 'Settings', settings_path %></li>
+            <% end %>
+        </ul>
+    </div>
+
+    <ul class="nav hidden-phone">
+        <li class="dropdown">
+            <%= link_to scans_path, class: 'dropdown-toggle disabled', data: { toggle: 'dropdown' } do %>
+                Scans
+
+                <% if (scan_acount = current_user.scans.active.count) > 0 %>
+                    <span id="active-scan-counter" class="label"><%= scan_acount %></span>
+                <% end %>
+
+                <b class="caret"></b>
+            <% end %>
+
+            <ul id="scan-dropdown" class="dropdown-menu">
+                <li>
+                    <%= link_to new_scan_path do %>
+                        <i class="icon-plus"></i>
+                        New
+                    <% end %>
+                </li>
+
+                <li>
+                    <%= link_to schedule_scans_path do %>
+                        <i class="icon-calendar"></i>
+                        Schedule
+                    <% end %>
+                </li>
+
+                <% if (recent_scans = current_user.scans.active.recent).any? %>
+                    <li class="divider"></li>
+                    <li class="nav-header">Recently started</li>
+                    <% recent_scans.each do |scan| %>
+                        <li>
+                            <%= link_to scan,
+                                        scan_path( scan ),
+                                        class: ("alert-warning" if scan.paused?),
+                                        title: ("Paused" if scan.paused?)
+                            %>
+                        </li>
+                    <% end %>
+                <% end %>
+
+                <% if (recent_scans = current_user.scans.finished.recent).any? %>
+                    <li class="divider"></li>
+                    <li class="nav-header">Recently finished</li>
+                    <% recent_scans.each do |scan| %>
+                        <%
+                           opts = if scan.error?
+                               { class: "alert-error", title: "Error" }
+                           elsif scan.aborted?
+                               { class: "alert-warning", title: "Aborted" }
+                           end
+                        %>
+                        <li>
+                            <%= link_to scan, scan_path( scan ), opts %>
+                        </li>
+                    <% end %>
+                <% end %>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <%= link_to profiles_path, class: 'dropdown-toggle disabled', data: { toggle: 'dropdown' } do %>
+                Profiles
+                <b class="caret"></b>
+            <% end %>
+
+            <ul id="profile-dropdown" class="dropdown-menu">
+                <% if can? :create, Profile %>
+                <li>
+                    <%= link_to new_profile_path do %>
+                        <i class="icon-plus"></i>
+                        New
+                    <% end %>
+                </li>
+                <% end %>
+
+                <% if (recent_profiles = current_user.available_profiles.light.recent).any? %>
+                    <li class="divider"></li>
+                    <li class="nav-header">Recently added</li>
+                    <% recent_profiles.each do |profile| %>
+                        <li><%= link_to profile, profile_path( profile ) %></li>
+                    <% end %>
+                <% end %>
+
+            </ul>
+        </li>
+
+        <% has_dropdown = (recent_dispatchers = current_user.available_dispatchers.recent).any? || can?( :create, Dispatcher ) %>
+
+        <li class="dropdown">
+            <%= link_to dispatchers_path, class: 'dropdown-toggle disabled', data: { toggle: 'dropdown' } do %>
+                Dispatchers
+                <% if has_dropdown %>
+                <b class="caret"></b>
+                <% end %>
+            <% end %>
+
+            <% if has_dropdown %>
+            <ul id="dispatcher-dropdown" class="dropdown-menu">
+
+                <% if can? :create, Dispatcher %>
+                <li>
+                    <%= link_to new_dispatcher_path do %>
+                        <i class="icon-plus"></i>
+                        New
+                    <% end %>
+                </li>
+                <% end %>
+
+                <% if recent_dispatchers.any? %>
+                    <li class="divider"></li>
+                    <li class="nav-header">Recently added</li>
+                    <% recent_dispatchers.each do |dispatcher| %>
+                        <li><%= link_to dispatcher, dispatcher_path( dispatcher ) %></li>
+                    <% end %>
+                <% end %>
+
+            </ul>
+            <% end %>
+        </li>
+
+        <% if can? :read, User %>
+        <li class="dropdown">
+            <%= link_to users_path, class: 'dropdown-toggle disabled', data: { toggle: 'dropdown' } do %>
+                Users
+                <b class="caret"></b>
+            <% end %>
+
+            <ul id="user-dropdown" class="dropdown-menu">
+                <% if can? :create, User %>
+                    <li>
+                        <%= link_to new_user_path do %>
+                            <i class="icon-plus"></i>
+                            New
+                        <% end %>
+                    </li>
+                <% end %>
+
+                <% if (recent_users = User.recent).any? %>
+                    <li class="divider"></li>
+                    <li class="nav-header">Recently added</li>
+                    <% recent_users.each do |user| %>
+                        <li><%= link_to user, user_path( user ) %></li>
+                    <% end %>
+                <% end %>
+
+            </ul>
+        </li>
+        <% end %>
+
+    </ul>
+<% end %>
+
+<ul class="nav pull-right">
+    <% if user_signed_in? %>
+
+        <% if (notifications = current_user.notifications.unread).any? %>
+        <li class="dropdown" id="notifications-list">
+            <%= link_to root_path, class: 'dropdown-toggle disabled', data: { toggle: 'dropdown' } do %>
+                <i class="icon-exclamation-sign"></i>
+
+                <span class="label label-inverse"><%= notifications.count %></span>
+                <b class="caret hidden-phone"></b>
+            <% end %>
+
+            <ul id="notification-dropdown" class="dropdown-menu hidden-phone">
+                <li>
+                    <%= link_to mark_read_notifications_path, method: :patch, remote: true do %>
+                        <i class="icon-ok"></i>
+                        Mark all read
+                    <% end %>
+                </li>
+
+                <li class="divider"></li>
+                <% notifications.each do |notification| %>
+                    <li>
+                        <% if notification.model %>
+                            <%= link_to notification.to_s, polymorphic_path( notification.model.family ) %>
+                        <% else %>
+                            <%= link_to notification.to_s, '#' %>
+                        <% end %>
+                    </li>
+                <% end %>
+            </ul>
+        </li>
+        <% end %>
+
+    <li>
+        <div class="btn-group">
+            <a class="btn btn-small btn-primary" href="#">
+                <i class="icon-user icon-white"></i>
+                <%= current_user.name %>
+            </a>
+
+            <a class="btn btn-small btn-primary dropdown-toggle"
+               data-toggle="dropdown" href="#">
+              <span class="caret"></span>
+            </a>
+            <ul id="current-user-dropdown" class="dropdown-menu">
+                <% if can? :read, Setting %>
+                    <li>
+                        <%= link_to settings_path do %>
+                            <i class="icon-cog"></i> Settings
+                        <% end %>
+                    </li>
+                    <li class="divider"></li>
+                <% end %>
+
+                <li>
+                  <%= link_to edit_user_registration_path do %>
+                      <i class="icon-pencil"></i> Edit account
+                  <% end %>
+                </li>
+                <li>
+                <%= link_to destroy_user_session_path, method: 'delete' do %>
+                    <i class="icon-off"></i> Sign out
+                <% end %>
+              </li>
+            </ul>
+        </div>
+    </li>
+    <% else %>
+    <li>
+        <%= link_to 'Sign in', new_user_session_path %>
+    </li>
+    <% end %>
+
+</ul>

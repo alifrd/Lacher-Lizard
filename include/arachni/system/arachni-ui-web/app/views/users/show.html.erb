@@ -1,0 +1,72 @@
+<% title @user %>
+<% breadcrumb_add 'Users', users_path %>
+
+<div id="users">
+    <div class="row-fluid">
+        <div class="span10">
+            <div class="page-header">
+                <h1><%= @user.name %> <small><%= @user.email %></small></h1>
+            </div>
+        </div>
+
+        <div class="span2">
+            <% if can? :edit, User %>
+                <%= link_to edit_user_path( @user ), title: 'Edit',
+                            class: 'btn btn-small btn-warning' do %>
+                    <i class="icon-pencil"></i>
+                <% end %>
+            <% end %>
+            <% if can?( :delete, User ) %>
+                <%= link_to @user, title: 'Delete', method: :delete,
+                            class: 'btn btn-small btn-danger',
+                            data: { confirm: 'Are you sure?' } do %>
+                    <i class="icon-trash"></i>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <% if current_user.admin? || current_user == @user %>
+            <div class="span6">
+                <h2>Activities</h2>
+                <% if @activities.any? %>
+                    <%= my_paginate @activities, param_name: 'activities_page' %>
+
+                    <ul class="notifications unstyled">
+                        <% @activities.each do |activity| %>
+                            <li>
+                                <%= render activity %>
+                            </li>
+                        <% end %>
+                    </ul>
+                <% else %>
+                    <p class="alert alert-info">
+                        <%= @user %> hasn't been up to anything.
+                    </p>
+                <% end %>
+            </div>
+        <% end %>
+
+        <div class="span6">
+            <% if (roles = @user.roles).any? %>
+                <h2>Roles</h2>
+                <ul>
+                    <% roles.each do |role| %>
+                        <li><%= role.name %></li>
+                    <% end %>
+                </ul>
+            <% end %>
+
+            <% if @scans.any? %>
+                <h2>Scans <small>[<%= @scans.size %>]</small></h2>
+                <ul class="unstyled">
+                    <% @scans.each do |scan| %>
+                        <li><%= link_to scan, scan_path( scan ) %></li>
+                    <% end %>
+                </ul>
+            <% end %>
+        </div>
+    </div>
+
+</div>

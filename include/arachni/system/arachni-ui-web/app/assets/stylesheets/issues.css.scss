@@ -1,0 +1,270 @@
+/*
+ * Copyright 2013-2017 Sarosys LLC <http://www.sarosys.com>
+ *
+ * This file is part of the Arachni WebUI project and is subject to
+ * redistribution and commercial restrictions. Please see the Arachni WebUI
+ * web site for more information on licensing and terms of use.
+*/
+
+// Place all the styles related to the scans controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#issues {
+
+    .severity-high {
+        background-color: #B94A48;
+    }
+    .severity-medium {
+        background-color: #d45500;
+    }
+    .severity-low {
+        background-color: #fc9200;
+    }
+    .severity-informational {
+        background-color: #3A87AD;
+    }
+
+    .tooltip {
+        position: fixed;
+    }
+
+    ul#issue-tabs {
+        margin-bottom: 10px;
+    }
+
+    table.fixed  {
+        table-layout: fixed;
+
+        th {
+            padding-top: 0px;
+        }
+        td.wrap {
+            word-wrap: break-word;
+            margin: 0;
+        }
+
+        tr.issue-type {
+            td {
+                border: 0px;
+                padding: 0px;
+
+                span.label {
+                    cursor: pointer;
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                    padding: 6px 6px !important;
+                    width: 100%;
+                    font-size: 14px !important;
+
+                    a {
+                        font-size: 11px;
+                        color: white;
+                        font-family: monospace;
+                        text-decoration: none;
+                    }
+
+                    a:hover {
+                        color: grey;
+                    }
+                }
+
+                span.label:hover {
+                    opacity: 0.7;
+                    transition: all 0.2s ease-in-out;
+                }
+            }
+        }
+
+        tr.issue-group td {
+            padding: 0;
+            padding-bottom: 3px;
+        }
+    }
+
+    table.issue-group {
+        margin-bottom: 5px;
+
+        thead th {
+            padding: 0;
+        }
+        tr td p.description {
+            margin-bottom: 5px;
+            padding: 5px;
+            border-top: 0;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        tr:first-child td, tr:nth-child(2) td {
+            border: 0px;
+        }
+    }
+
+    table.key-values {
+        table th {
+            text-align: right;
+        }
+
+        table th.top {
+            text-align: center;
+        }
+    }
+
+    table th.top {
+        text-align: center;
+        border-top: none;
+    }
+
+    table#parameters {
+        tr:first-child{
+            td, th {
+                padding-top: 0;
+                border-top: none;
+            }
+        }
+    }
+
+    .table tr.request-transition td:nth-child(2) {
+        padding-left: 30px;
+    }
+
+    #legend {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 85%;
+
+        ul#severities {
+            li:nth-child(n+3) span.label {
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+
+            li:nth-child(n+4):nth-last-child(n+2) span.label {
+                border-radius: 0px;
+            }
+
+            li:last-child span.label {
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
+            }
+        }
+
+        ul#issues {
+            li:nth-child(n+2) span.label {
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+
+            li:nth-child(n+3):nth-last-child(n+2) span.label {
+                border-radius: 0px;
+            }
+
+            li:last-child span.label {
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
+            }
+        }
+
+        ul {
+            padding-left: 0;
+
+            li.nav-header span {
+                width: 100%;
+                cursor: pointer;
+            }
+
+            li.btn-group {
+                margin-bottom: 5px;
+            }
+
+            li span.label {
+                width: 100%;
+                cursor: pointer;
+                text-align: right;
+
+                span.severity-name {
+                    float: left;
+                    text-overflow: hidden;
+                    width: 0px;
+                }
+            }
+
+            li span.label:hover {
+                opacity: 0.7;
+                transition: all 0.2s ease-in-out;
+            }
+        }
+
+    }
+
+    #table-container {
+        margin-left: 10px;
+    }
+
+  #browser_body_container, #http_response_container {
+        overflow: scroll;
+        height: 400px;
+        position: relative;
+
+        .proof {
+            color: red;
+            font-weight: bold;
+        }
+    }
+
+    iframe.rendered-response {
+        width: 100%;
+        height: 100%;
+        border:  none;
+    }
+
+    .repeat-request-btn {
+        margin-top: 8px;
+        margin-left: 10px;
+    }
+
+    .accordion-group {
+        border: 0px;
+        border-bottom: 1px solid #E5E5E5
+    }
+
+    .form-inputs {
+
+        .help-block {
+            clear: both;
+            display: block;
+        }
+
+        label {
+            display: inline;
+            float: left;
+            padding-right: 10px;
+        }
+
+        .checkbox, input {
+            float: right;
+        }
+
+        #false-positive-report-nudge {
+            display: none;
+        }
+
+        #issue_verification_steps {
+            width: 97%;
+            height: 250px;
+        }
+
+        #issue_remediation_steps {
+            width: 97%;
+            height: 250px;
+        }
+    }
+}

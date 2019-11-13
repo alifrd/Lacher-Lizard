@@ -1,0 +1,342 @@
+/*
+ * Copyright 2013-2017 Sarosys LLC <http://www.sarosys.com>
+ *
+ * This file is part of the Arachni WebUI project and is subject to
+ * redistribution and commercial restrictions. Please see the Arachni WebUI
+ * web site for more information on licensing and terms of use.
+*/
+
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+*/
+
+#loading {
+    position: fixed;
+    z-index: 2000;
+    top: 0px;
+    left: 0;
+    height: 5px;
+    width: 10000px;
+}
+
+.accordion-toggle:hover {
+    text-decoration: none;
+}
+
+.label {
+    padding: 4px 5px !important;
+}
+
+.content {
+    //background-color: #eee;
+    padding: 20px;
+    margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+    -webkit-box-shadow: 0 1px 2px rgba( 0, 0, 0, .15 );
+    -moz-box-shadow: 0 1px 2px rgba( 0, 0, 0, .15 );
+    box-shadow: 0 1px 2px rgba( 0, 0, 0, .15 );
+}
+.jumbotron {
+    position: relative;
+}
+.jumbotron h1 {
+    font-size: 54px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 9px;
+}
+.jumbotron p {
+    font-weight: 300;
+    margin-bottom: 18px;
+}
+.jumbotron .btn-large {
+    border-radius: 6px 6px 6px 6px;
+    font-size: 20px;
+    font-weight: normal;
+    margin-right: 10px;
+    padding: 14px 24px;
+}
+.jumbotron .btn-large small {
+    font-size: 14px;
+}
+
+footer {
+    background: none repeat scroll 0 0 #111;
+    border-top: 0 none;
+    margin-top: 19px;
+    padding-top: 19px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+
+    display: block;
+}
+footer a {
+    color: #999999;
+}
+footer a:hover {
+    color: #ccc;
+    text-decoration: none;
+}
+footer h4 {
+    color: #CCCCCC;
+    font-size: 18px;
+    font-weight: normal;
+}
+footer p {
+    color: #999999;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+footer ul {
+    border-top: 1px solid #222222;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+footer ul li {
+    padding: 0;
+}
+footer ul li a {
+    display: inline-block;
+    border-bottom: 1px solid #222222;
+    display: block;
+    font-size: 11px;
+    padding: 7px 10px;
+    text-decoration: none;
+}
+footer ul li a:hover {
+    color: #999;
+    background-color: #222222;
+    transition: all 0.2s ease-in-out 0s;
+}
+
+.subnav {
+    background-color: #EEEEEE;
+    background-image: -moz-linear-gradient(center top , #F5F5F5 0%, #EEEEEE 100%);
+    background-repeat: repeat-x;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px 4px 4px 4px;
+    height: 36px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.subnav .nav {
+    margin-bottom: 0;
+}
+.subnav .nav > li > a {
+    border-left: 1px solid #F5F5F5;
+    border-radius: 0 0 0 0;
+    border-right: 1px solid #E5E5E5;
+    margin: 0;
+    padding-bottom: 11px;
+    padding-top: 11px;
+}
+.subnav .nav > .active > a, .subnav .nav > .active > a:hover {
+    background-color: #E9E9E9;
+    border-left: 0 none;
+    border-right-color: #DDDDDD;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05) inset;
+    color: #777777;
+    padding-left: 13px;
+}
+.subnav .nav > .active > a .caret, .subnav .nav > .active > a:hover .caret {
+    border-top-color: #777777;
+}
+.subnav .nav > li:first-child > a, .subnav .nav > li:first-child > a:hover {
+    border-left: 0 none;
+    border-radius: 4px 0 0 4px;
+    padding-left: 12px;
+}
+.subnav .nav > li:last-child > a {
+    border-right: 0 none;
+}
+.subnav .dropdown-menu {
+    border-radius: 0 0 4px 4px;
+}
+.subnav-fixed {
+    border-color: #D5D5D5;
+    border-radius: 0 0 0 0;
+    border-width: 0 0 1px;
+    box-shadow: 0 1px 0 #FFFFFF inset, 0 1px 5px rgba(0, 0, 0, 0.1);
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 40px;
+    z-index: 1020;
+}
+.subnav-fixed .nav {
+    margin: 0 auto;
+    padding: 0 1px;
+    width: 938px;
+}
+.subnav .nav > li:first-child > a, .subnav .nav > li:first-child > a:hover {
+    border-radius: 0 0 0 0;
+}
+.sidenav {
+    width: 200px;
+    margin: 30px 0 0;
+    padding: 0;
+    background-color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+.sidenav > li > a {
+    display: block;
+    width: 190px \9;
+    margin: 0 0 -1px;
+    padding: 8px 14px;
+    border: 1px solid #e5e5e5;
+}
+.sidenav > li:first-child > a {
+    -webkit-border-radius: 6px 6px 0 0;
+    -moz-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+.sidenav > li:last-child > a {
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+}
+.sidenav > .active > a {
+    position: relative;
+    z-index: 2;
+    padding: 9px 15px;
+    border: 0;
+    text-shadow: 0 1px 0 rgba(0,0,0,.15);
+    -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+    -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+    box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+}
+
+/* Chevrons */
+.sidenav .icon-chevron-right, .icon-chevron-up {
+    float: right;
+    margin-top: 2px;
+    margin-right: -6px;
+    opacity: .25;
+}
+.sidenav > li > a:hover {
+    background-color: #f5f5f5;
+}
+.sidenav a:hover .icon-chevron-right {
+    opacity: .5;
+}
+.sidenav .active .icon-chevron-right,
+.sidenav .active .icon-chevron-up,
+.sidenav .active a:hover .icon-chevron-right,
+.sidenav .active a:hover .icon-chevron-up {
+    //background-image: url('/assets/glyphicons-halflings-white.png');
+    opacity: 1;
+}
+.sidenav.affix-bottom {
+    position: absolute;
+    top: auto;
+    bottom: 270px;
+}
+
+@media screen and (max-width: 1400px) {
+    .sidenav {
+        visibility: hidden;
+    }
+}
+
+.breadcrumbs {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #252525;
+    border-color: -moz-use-text-color #252525 #252525;
+    border-right: 1px solid #252525;
+    border-style: none solid solid;
+    border-width: 0 1px 1px;
+    margin-left: -1px;
+    margin-bottom: -1px;
+}
+.breadcrumbs .bread {
+    height: 27px;
+    list-style-type: none;
+    margin: 0;
+}
+.breadcrumbs .bread li {
+    float: left;
+    position: relative;
+}
+.breadcrumbs .bread li a {
+    color: #888888;
+    display: block;
+    padding: 5px 10px;
+
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.breadcrumbs .bread li a i {
+    opacity: 0.3;
+}
+.breadcrumbs .bread li a:hover {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.breadcrumbs .bread li a:hover i {
+    opacity: 1;
+}
+.breadcrumbs .bread li a:after {
+    content: "/";
+    margin-left: 15px;
+}
+.breadcrumbs .bread li:last-child a:after {
+    content: "";
+}
+.breadcrumbs .bread li.active a {
+    color: #FFFFFF;
+}
+
+ul.nav li.dropdown:hover ul.dropdown-menu{
+    display: block;
+}
+
+.navbar .dropdown-menu {
+    margin-top: 0px;
+}
+
+#phone-menu {
+    clear: left;
+}
+
+.jumptarget:before {
+    content: "";
+    display: block;
+    height:  71px; /* fixed header height*/
+    margin:  -71px 0 0; /* negative fixed header height */
+}
+
+.stick {
+    position: fixed;
+    top: 80px;
+}
+
+#left-sidebar {
+    width: 13%
+}

@@ -1,0 +1,61 @@
+<div id="<%= issue_id(issue) %>">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a href="<%= issue_location(issue) %>">
+                            In <code><%= issue.vector.type %></code>
+
+                            <% if issue.active? %>
+                                input
+                                <code><%= issue.affected_input_name %></code>
+                            <% elsif issue.vector.respond_to? :inputs %>
+                                with inputs
+                                <% issue.vector.inputs.keys.map do |iname| %>
+                                    <code><%= iname %></code>
+                                <% end.join( ', ') %>
+                            <% end %>
+
+                            <% if issue.request %>
+                                using
+                                <code><%= issue.request.method.to_s.upcase %></code>
+                            <% end %>
+                        </a>
+
+                        at
+
+                        <a href="<%= escapeHTML(issue.vector.url) %>">
+                            <%= escapeHTML(issue.vector.url) %>
+                        </a>
+
+                        pointing to
+                        <a href="<%= escapeHTML(issue.vector.action) %>">
+                            <%= escapeHTML(issue.vector.action) %>
+                        </a>.
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <%=
+                                erb 'issue/info.erb',
+                                    issue: issue,
+                                    id:    issue_id( issue )
+                            %>
+                        </div>
+                    </div>
+
+                    <%=
+                        erb 'issue/details.erb',
+                            issue: issue,
+                            id:    issue_id( issue )
+                    %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

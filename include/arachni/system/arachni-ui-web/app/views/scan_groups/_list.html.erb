@@ -1,0 +1,61 @@
+<%
+
+   if local_assigns[:path_method].is_a? Symbol
+       path_method = method( local_assigns[:path_method] )
+   elsif local_assigns[:path_method].nil?
+       path_method = method( :scans_path )
+   end
+
+   show_owner = !!local_assigns[:show_owner]
+%>
+
+<div class="row-fluid scan-groups-list">
+    <% if can? :manage, groups.first %>
+        <div class="span3">
+            <ul class="unstyled group">
+
+                <% groups.each do |group| %>
+                    <li>
+                        <%= link_to scan_group_path( group,
+                                                     selected_group_id: @group.try( :id ) ),
+                                    method: :delete, remote: true,
+                                    onclick: 'loading();', confirm: 'Delete this group?' do %>
+                            <i class="icon-remove"></i>
+                        <% end %>
+
+                        <%= link_to edit_scan_group_path( group,
+                                                          selected_group_id: @group.try( :id ) ),
+                                    remote: true, onclick: 'loading();' do %>
+                            <i class="icon-pencil"></i>
+                        <% end %>
+                    </li>
+
+                    <% if show_owner %>
+                        <li>&nbsp;</li>
+                    <% end %>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="span6">
+        <ul class="nav nav-list">
+            <% groups.each do |group| %>
+                <li
+                <%= 'class="active"'.html_safe if group == @group %>
+                >
+                    <%= link_to path_method.call( params.merge( format: nil, group_id: group.id ) ),
+                                onclick: 'loading();', remote: true do %>
+                        <%= group %> (<%= group.scans.size %>)
+                    <% end %>
+                </li>
+
+                <% if show_owner %>
+                    <li class="muted">
+                        <small>By <%= group.owner %></small>
+                    </li>
+                <% end %>
+            <% end %>
+        </ul>
+    </div>
+</div>

@@ -17,8 +17,9 @@ DOMAIN_NAME = get_domain_name(HOMEPAGE)
 QUEUE_FILE = PROJECT_NAME + '/queue.txt'
 CRAWLED_FILE = PROJECT_NAME + '/crawled.txt'
 NUMBER_OF_THREADS = config['ThreadNumber']
+SIGN_MODE = config['Setting']['Sign']
 queue = Queue()
-Spider(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME , MODE , MIDDLE_WARE)
+Spider(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME , MODE , MIDDLE_WARE , SIGN_MODE)
 
 
 # Create worker threads (will die when main exits)

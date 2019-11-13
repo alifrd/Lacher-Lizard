@@ -1,0 +1,64 @@
+/*
+ * Copyright 2013-2017 Sarosys LLC <http://www.sarosys.com>
+ *
+ * This file is part of the Arachni WebUI project and is subject to
+ * redistribution and commercial restrictions. Please see the Arachni WebUI
+ * web site for more information on licensing and terms of use.
+*/
+
+// Place all the styles related to the scans controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#scan_group_name,
+#scan_group_description,
+#scan_group_user_ids {
+    clear: both;
+    width:  100%;
+}
+
+.scan-groups-list {
+    position: relative;
+    max-height: 150px;
+    overflow:  auto;
+
+    ul li {
+        width: 100%;
+    }
+}
+
+ul#scan-group-tabs li {
+    font-size: 12px;
+}
+
+#scan-groups-sidebar {
+    blockquote p {
+        font-size: inherit;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    ul.nav li {
+        padding-left: 5px;
+    }
+
+    ul.group li {
+        line-height: 26px;
+    }
+
+    ul a:hover i {
+        text-decoration: none;
+    }
+
+    ul.nav li {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .btn-clear {
+        width:  90%;
+    }
+}

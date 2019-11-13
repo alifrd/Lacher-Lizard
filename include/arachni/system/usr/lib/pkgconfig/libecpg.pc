@@ -1,0 +1,9 @@
+Name: libecpg
+Description: PostgreSQL libecpg library
+Url: http://www.postgresql.org/
+Version: 9.4.5
+Requires: 
+Requires.private: libpq libpgtypes
+Cflags: -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include
+Libs: -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -lecpg
+Libs.private: -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -lm -lpthread

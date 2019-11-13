@@ -1,0 +1,18 @@
+prefix=/Users/zapotek/arachni-build-dir/arachni/system/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+sysconfdir=${prefix}/etc
+localstatedir=${prefix}/var
+PACKAGE=fontconfig
+confdir=${sysconfdir}/fonts
+cachedir=${localstatedir}/cache/${PACKAGE}
+
+Name: Fontconfig
+Description: Font configuration and customization library
+Version: 2.11.1
+Requires:  freetype2
+Requires.private: 
+Libs: -L${libdir} -lfontconfig
+Libs.private: -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -lexpat -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -lfreetype -lz  
+Cflags: -I${includedir} -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include/freetype2  

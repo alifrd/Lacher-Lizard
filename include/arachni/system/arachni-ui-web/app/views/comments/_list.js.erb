@@ -1,0 +1,9 @@
+$("#comments-list").html( "<%= escape_javascript(
+                        render( partial: 'list.html',
+                                 locals: { comments: @commentable.comments,
+                                           list_url: polymorphic_path( [@commentable.family, Comment].flatten ) })  ).
+                                  force_encoding( 'utf-8' ) %>" );
+
+window.resetCommentCounters();
+
+<%= render 'form.js' %>

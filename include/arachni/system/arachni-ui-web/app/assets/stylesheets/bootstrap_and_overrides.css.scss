@@ -1,0 +1,48 @@
+/*
+ * Copyright 2013-2017 Sarosys LLC <http://www.sarosys.com>
+ *
+ * This file is part of the Arachni WebUI project and is subject to
+ * redistribution and commercial restrictions. Please see the Arachni WebUI
+ * web site for more information on licensing and terms of use.
+*/
+
+@import "bootstrap";
+body { padding-top: 60px; }
+@import "bootstrap-responsive";
+
+.navbar {
+    box-shadow: 0 0 2px 1px #313131 inset, 0 1px 5px #080808;
+}
+
+@media (max-width: 767px) {
+    footer {
+        margin-right: -20px;
+        margin-left: -20px;
+    }
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0 0 0.5em;
+}
+
+h2 {
+    font-size: 34px;
+    font-weight: normal;
+    margin: 0 0 0.5em;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: normal;
+    margin: 0 0 0.5em;
+}
+
+.page-header {
+    margin-top: 0px;
+}

@@ -1,0 +1,73 @@
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/oj-2.15.0/ext/oj
+/Users/zapotek/arachni-build-dir/arachni/system/usr/bin/ruby -r ./siteconf20170329-90734-1efogfm.rb extconf.rb
+>>>>> Creating Makefile for ruby version 2.2.3 on x86_64-darwin13 <<<<<
+creating Makefile
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/oj-2.15.0/ext/oj
+make "DESTDIR=" clean
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/oj-2.15.0/ext/oj
+make "DESTDIR="
+compiling cache8.c
+compiling circarray.c
+compiling compat.c
+compiling dump.c
+dump.c:570:8: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        cnt = RSTRING_LEN(rstr);
+            ~ ^~~~~~~~~~~~~~~~~
+/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/ruby/ruby.h:863:6: note: expanded from macro 'RSTRING_LEN'
+     RSTRING_EMBED_LEN(str) : \
+     ^~~~~~~~~~~~~~~~~~~~~~
+/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/ruby/ruby.h:859:6: note: expanded from macro 'RSTRING_EMBED_LEN'
+     (long)((RBASIC(str)->flags >> RSTRING_EMBED_LEN_SHIFT) & \
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dump.c:570:8: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+        cnt = RSTRING_LEN(rstr);
+            ~ ^~~~~~~~~~~~~~~~~
+/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/ruby/ruby.h:864:28: note: expanded from macro 'RSTRING_LEN'
+     RSTRING(str)->as.heap.len)
+     ~~~~~~~~~~~~~~~~~~~~~~^~~
+dump.c:1928:17: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+            int         len = RSTRING_LEN(v);
+                        ~~~   ^~~~~~~~~~~~~~
+/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/ruby/ruby.h:863:6: note: expanded from macro 'RSTRING_LEN'
+     RSTRING_EMBED_LEN(str) : \
+     ^~~~~~~~~~~~~~~~~~~~~~
+/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/ruby/ruby.h:859:6: note: expanded from macro 'RSTRING_EMBED_LEN'
+     (long)((RBASIC(str)->flags >> RSTRING_EMBED_LEN_SHIFT) & \
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dump.c:1928:17: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+            int         len = RSTRING_LEN(v);
+                        ~~~   ^~~~~~~~~~~~~~
+/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/ruby/ruby.h:864:28: note: expanded from macro 'RSTRING_LEN'
+     RSTRING(str)->as.heap.len)
+     ~~~~~~~~~~~~~~~~~~~~~~^~~
+4 warnings generated.
+compiling err.c
+compiling fast.c
+compiling hash.c
+compiling hash_test.c
+compiling object.c
+object.c:285:40: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'int' [-Wshorten-64-to-32]
+            parent->val = parse_xml_time(str, len);
+                          ~~~~~~~~~~~~~~      ^~~
+1 warning generated.
+compiling odd.c
+compiling oj.c
+compiling parse.c
+parse.c:738:23: warning: implicit conversion loses integer precision: 'long long' to 'int' [-Wshorten-64-to-32]
+            int         x = ni->exp - ni->di;
+                        ~   ~~~~~~~~^~~~~~~~
+1 warning generated.
+compiling reader.c
+compiling resolve.c
+compiling saj.c
+compiling scp.c
+compiling sparse.c
+compiling strict.c
+compiling val_stack.c
+linking shared-object oj/oj.bundle
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/oj-2.15.0/ext/oj
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 oj.bundle ./.gem.20170329-90734-12o67iy/oj

@@ -1,0 +1,14 @@
+<% title "Editing #{@profile.name}" %>
+
+<% breadcrumb_add 'Profiles', profiles_path %>
+
+<% render partial: 'subnav' %>
+
+<div class="page-header">
+    <h1>Editing '<%= @profile.name %>' profile</h1>
+</div>
+
+<div id='profiles'>
+<%= render 'form' %>
+</div>
+

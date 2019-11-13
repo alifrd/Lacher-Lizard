@@ -1,0 +1,12 @@
+<% title @profile.name %>
+
+<% breadcrumb_add 'Profiles', profiles_path %>
+<% render partial: 'subnav' %>
+
+<% add_to_affixed_sidebar do %>
+    <%= render partial: 'actions', locals: { profile: @profile } %>
+<% end %>
+
+<div id='profiles'>
+    <%= render @profile %>
+</div>

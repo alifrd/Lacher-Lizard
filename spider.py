@@ -2,15 +2,16 @@ from link_finder import LinkFinder
 from domain import *
 from general import *
 from domain import *
-from urlsign import getSign
+from url_sign import getSign
 import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
-import time;
+from time import time;
 import logging
-import time
-import json
 from random import randint
+
+
+
 
 class Spider:
 
@@ -24,6 +25,7 @@ class Spider:
     otherUrl_file = ''
     searchMode = ""
     proxyMode = ""
+    signMode = ""
     queue = set()
     crawled = set()
     sign = set()
@@ -33,10 +35,11 @@ class Spider:
     errors = 0
     thread_name = ""
     backoff = 0.3
+    startTime = 0
     sslproxies = read_proxy("PROXY")
     socksproxies = read_proxy("SOCKS")
     
-    def __init__(self, project_name, base_url, domain_name , search_mode , proxy_mode):
+    def __init__(self, project_name, base_url, domain_name , search_mode , proxy_mode , sign_mode):
         Spider.project_name = project_name
         Spider.base_url = base_url
         Spider.domain_name = domain_name
@@ -47,8 +50,11 @@ class Spider:
         Spider.otherUrl_file = Spider.project_name+"/otherUrl.txt"
         Spider.searchMode = search_mode
         Spider.proxyMode = proxy_mode
+        Spider.signMode = sign_mode
+        Spider.startTime = time()
         self.boot()
         self.crawl_page('First spider', Spider.base_url)
+
 
 
     #    path = project_name+"/"+"logfile.log"
@@ -84,7 +90,7 @@ class Spider:
         
         if page_url not in Spider.crawled:
             print(thread_name + ' now crawling ' + page_url)
-            print('All urls ' + str(Spider.urlCount) +' | Queue ' + str(len(Spider.queue)) + ' | Crawled  ' + str(len(Spider.crawled))+ ' | Target  ' + str(len(Spider.target))+ ' | ERR  ' + str(Spider.errors) )
+            print('All urls ' + str(Spider.urlCount) +' | Queue ' + str(len(Spider.queue)) + ' | Crawled  ' + str(len(Spider.crawled))+ ' | Target  ' + str(len(Spider.target))+ ' | ERR  ' + str(Spider.errors) +" | "+ time_convert(time() - Spider.startTime)) 
             
             Spider.add_links_to_queue(Spider.gather_links(page_url))
             
@@ -165,7 +171,7 @@ class Spider:
 
     @staticmethod
     def routing_urls(base_url,url,mode):
-        sign = getSign(url)
+        sign = getSign(url,Spider.signMode)
         urlsign = base_url+sign
         flag = 0                
 
@@ -183,7 +189,7 @@ class Spider:
                 flag = 2
         
         if(flag != 1 ):
-            Spider.queue.add(str(flag)+" | "+str(time.time())+" | "+url)
+            Spider.queue.add(str(flag)+" | "+str(time())+" | "+url)
             if flag == 0:
                 Spider.sign.add( urlsign )
                 Spider.target.add(url)

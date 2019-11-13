@@ -9,6 +9,13 @@ def create_project_dir(directory):
         print('Creating directory ' + directory)
         os.makedirs(directory)
 
+def time_convert(sec):
+  mins = sec // 60
+  sec = sec % 60
+  hours = mins // 60
+  mins = mins % 60
+  return("Time  {0}:{1}:{2}".format(int(hours),int(mins),int(sec)))
+
 
 # Create queue and crawled files (if not created)
 def create_data_files(project_name, base_url):
@@ -30,10 +37,10 @@ def create_data_files(project_name, base_url):
     if not os.path.isfile(target):
         write_file(target, '')
 
-def create_sqlmap_data_files(path):
-    queue = os.path.join(path+"/sqlmap" , 'queue.txt')
-    neg = os.path.join(path+"/sqlmap" ,"negtive.txt")
-    pos = os.path.join(path+"/sqlmap" ,"postive.txt")
+def create_penetration_data_files(path , name):
+    queue = os.path.join(path+"/"+name , 'queue.txt')
+    neg = os.path.join(path+"/"+name ,"negtive.txt")
+    pos = os.path.join(path+"/"+name ,"postive.txt")
     
     
     if not os.path.isfile(queue):
@@ -43,7 +50,7 @@ def create_sqlmap_data_files(path):
     if not os.path.isfile(pos):
         write_file(pos, '')
 
-    copyfile(path+'/target.txt' , path+'/sqlmap/queue.txt')
+    copyfile(path+'/target.txt' , path+'/'+name+'/queue.txt')
     return queue,neg,pos
 
 

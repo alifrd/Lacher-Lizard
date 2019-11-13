@@ -1,0 +1,18 @@
+<% @comment ||= Comment.new %>
+
+<div class="comment-form" id="comment-form">
+    <%= simple_form_for( [commentable.family, @comment].flatten, remote: true ) do |f| %>
+        <div>
+            <%= f.error_notification %>
+            <%= f.input :text, label: false, hint: 'You can use Markdown for text formatting.' %>
+        </div>
+
+        <div>
+            <span id="posting-comment-spinner" class="hide">
+                <i class="icon-spinner icon-spin"></i>
+            </span>
+
+            <%= f.button :submit, class: 'btn btn-primary', value: 'Add comment' %>
+        </div>
+    <% end %>
+</div>

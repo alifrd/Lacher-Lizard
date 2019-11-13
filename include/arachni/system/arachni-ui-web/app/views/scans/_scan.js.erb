@@ -1,0 +1,79 @@
+// The AJAX refresh messes with the page scroll so we need to keep track of it
+// and then restore it.
+
+// One works in FF, the other in Chrome, try both and see what sticks.
+var pageYOffset = $('body').scrollTop() || $('html').scrollTop();
+var legendWidth = $('#issues div#legend' ).parent().width();
+var legendClass = $('#issues div#legend' ).attr('class');
+
+<% if !params.delete( :change_revision ) %>
+    $("#comments-list").html( "<%= escape_javascript(
+                        render partial: 'comments/list.html',
+                            locals: {
+                                 comments: @scan.comments,
+                                 list_url: scan_comments_path( @scan, partial: true ),
+                                 refresh: false
+                       }).force_encoding( 'utf-8' ) %>" );
+<% else %>
+    $("#comments").html( "<%= escape_javascript( render partial: 'comments' ) %>" );
+    $('#editable-description' ).html( "<%= escape_javascript( render partial: 'editable_description' ) %>" );
+<% end %>
+
+<% if params[:action].to_s == 'update' %>
+    $('#editable-description' ).html( "<%= escape_javascript( render partial: 'editable_description' ) %>" );
+<% end %>
+
+<% if !@scan.error_messages.empty? %>
+    $("#error-messages").html( "<%= escape_javascript( @scan.error_messages ).force_encoding( 'utf-8' ) %>" );
+    $("#error-messages-container" ).show();
+
+    var objDiv = document.getElementById( 'error-messages' );
+    objDiv.scrollTop = objDiv.scrollHeight;
+<% end %>
+
+$("#issues").html( "<%= escape_javascript( render( partial: 'issues/table.html', locals: { url_method_type: :scan_path } ) .force_encoding( 'utf-8' ) ) %>" );
+
+$("#revisions-nav-list").html( "<%= escape_javascript( render( partial: 'revisions_nav_list' ).force_encoding( 'utf-8' ) ) %>" );
+$("#scan-sidebar").html( "<%= escape_javascript( render( partial: 'scan_sidebar' ).force_encoding( 'utf-8' ) ) %>" );
+
+<% if @scan.suspended? %>
+    $("#scan").html( "<%= escape_javascript( render 'show_suspended' ) %>" );
+<% else %>
+    $("#scan").html( "<%= escape_javascript( render @scan.active? ? 'show_active' : 'show_inactive' ) %>" );
+<% end %>
+
+<% if !params['_method'] || params['_method'] == 'get' %>
+    $('#updater').data( 'refresh-url', "<%= scan_path( @scan, params.merge( format: :js ) ) %>" );
+<% end %>
+
+<% if @scan.overview? %>
+    $('#scan').hide();
+    $('#comments-link-container').hide();
+    $('#edit-description-btn').hide();
+    $('#comments').hide();
+    $('#scan-description' ).html( "Overview" );
+    $('#scan-description' ).show();
+    $('#scan-description-form').hide();
+<% else %>
+    $('#edit-description-btn').show();
+    $('#scan-description' ).html( "<%= escape_javascript( m @scan.description ) %>" );
+    $('#scan').show();
+    $('#comments-link-container').show();
+    $('#comments').show();
+<% end %>
+
+if( $('#scan-description-form').is( ':visible' ) ){
+    $('#edit-description-btn').hide();
+}
+
+window.restoreIssueVisibility();
+// Restore the scroll value to where it was prior to the AJAX refresh.
+$("html, body").scrollTop( pageYOffset );
+
+var legend = $('div#legend');
+legend.attr('class', legendClass);
+legend.width(legendWidth);
+
+window.setupScanCallbacks();
+window.setupComments();
+

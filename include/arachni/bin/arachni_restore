@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+source "$(dirname $0)/readlink_f.sh"
+source "$(dirname "$(readlink_f "${0}")")"/../system/setenv
+
+# PhantomJS cache is under $HOME/.qws/ and each version may affect it differently,
+# so each package needs its own $HOME.
+export HOME="$env_root/home/arachni"
+export FONTCONFIG_PATH="$HOME/.fonts"
+
+exec ruby $env_root/arachni-ui-web/bin/arachni_restore "$@"
+

@@ -1,0 +1,61 @@
+<div class="accordion">
+    <% components.each do |shortname, info| %>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse"
+                   data-parent="#component-accordion" href="#<%= shortname %>">
+                    <%= info[:name] %> (<%= shortname %>)
+                </a>
+            </div>
+            <div style="height: 0px;" id="<%= shortname %>" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <div class="markdown">
+                        <%= m info[:description] %>
+                    </div>
+
+                    <hr/>
+
+                    <p>
+                        <strong>Version:</strong> <%= info[:version] %><br/>
+                    </p>
+
+                    <div>
+                        <strong>Authors:</strong>
+
+                        <ul>
+                            <% info[:authors].each do |author| %>
+                                <li><%= author %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+
+                    <% if info[:targets].is_a? Array %>
+                        <div>
+                            <strong>Supported platforms:</strong>
+                            <ul>
+                            <% info[:targets].each do |platform| %>
+                                <li><%= platform %></li>
+                            <% end %>
+                            </ul>
+                        </div>
+                    <% end %>
+
+                    <% if info[:options] %>
+                        <div>
+                            <strong>Options</strong>
+                            <div class="plugin-options">
+                                <%= render partial: 'plugin_options',
+                                           locals: {
+                                                   plugin_info:   info,
+                                                   plugin_name:   shortname,
+                                                   configuration: @profile.plugins[shortname] || {},
+                                                   disabled:      true
+                                           } %>
+                            </div>
+                        </div>
+                    <%end%>
+                </div>
+            </div>
+        </div>
+    <%end%>
+</div>

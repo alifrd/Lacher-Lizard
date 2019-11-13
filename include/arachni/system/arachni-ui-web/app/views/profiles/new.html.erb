@@ -1,0 +1,18 @@
+<% breadcrumb_add 'Profiles', profiles_path %>
+<% breadcrumb_add 'New', new_profile_path %>
+<% render partial: 'subnav' %>
+
+<div class="page-header">
+    <h1>Create a profile</h1>
+
+    <div class="lead">
+        Create a new profile from a plethora of options but please pay attention
+        to their description and assorted notices.
+    </div>
+</div>
+
+<div id='profiles'>
+<%= render 'form' %>
+</div>
+
+<%= link_to 'Back', profiles_path %>

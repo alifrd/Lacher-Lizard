@@ -1,0 +1,26 @@
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/concurrent-ruby-ext-1.0.2/ext/concurrent
+/Users/zapotek/arachni-build-dir/arachni/system/usr/bin/ruby -r ./siteconf20170329-90734-oc59si.rb extconf.rb
+checking for libkern/OSAtomic.h... yes
+creating Makefile
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/concurrent-ruby-ext-1.0.2/ext/concurrent
+make "DESTDIR=" clean
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/concurrent-ruby-ext-1.0.2/ext/concurrent
+make "DESTDIR="
+compiling atomic_boolean.c
+compiling atomic_fixnum.c
+compiling atomic_reference.c
+atomic_reference.c:64:57: warning: incompatible pointer types passing 'void **' to parameter of type 'volatile int64_t *' (aka 'volatile long long *') [-Wincompatible-pointer-types]
+  if (OSAtomicCompareAndSwap64(expect_value, new_value, &DATA_PTR(self))) {
+                                                        ^~~~~~~~~~~~~~~
+/usr/include/libkern/OSAtomic.h:507:93: note: passing argument to parameter '__theValue' here
+bool    OSAtomicCompareAndSwap64( int64_t __oldValue, int64_t __newValue, volatile int64_t *__theValue );
+                                                                                            ^
+1 warning generated.
+compiling rb_concurrent.c
+linking shared-object concurrent/extension.bundle
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/concurrent-ruby-ext-1.0.2/ext/concurrent
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 extension.bundle ./.gem.20170329-90734-dvlea5/concurrent

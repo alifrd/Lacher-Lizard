@@ -1,0 +1,9 @@
+Name: libpgtypes
+Description: PostgreSQL libpgtypes library
+Url: http://www.postgresql.org/
+Version: 9.4.5
+Requires: 
+Requires.private: 
+Cflags: -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include
+Libs: -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -lpgtypes
+Libs.private: -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -lm

@@ -1,0 +1,54 @@
+#
+# Environment configuration.
+#
+# Makes bundled dependencies available before running anything Arachni related.
+#
+# *DO NOT EDIT* unless you really, really know what you're doing.
+#
+
+#
+# /Users/zapotek/arachni-build-dir/arachni/system is set by the caller.
+#
+
+function version { echo "$@" | awk -F. '{ printf("%d%d\n", $1,$2); }'; }
+
+operating_system=$(uname -s | awk '{print tolower($0)}')
+
+# Only set paths if not already configured.
+echo "$LD_LIBRARY_PATH-$DYLD_LIBRARY_PATH-$DYLD_FALLBACK_LIBRARY_PATH" | egrep $env_root > /dev/null
+if [[ $? -ne 0 ]] ; then
+    export PATH; PATH="$env_root/../bin:$env_root/usr/bin:$env_root/gems/bin:$PATH"
+    
+    export C_INCLUDE_PATH="$env_root/usr/include"
+    export CPLUS_INCLUDE_PATH="$C_INCLUDE_PATH"
+
+    # We also set the default paths to make sure that they will be seen by the OS. 
+    # There have been issues with Ruby FFI (mostly on OSX 10.11) but why risk it, 
+    # set these always just to make sure.
+    export LIBRARY_PATH="$env_root/usr/lib:/usr/lib:/usr/local/lib"
+    export LD_LIBRARY_PATH="$LIBRARY_PATH"
+
+    if [[ "$operating_system" == "darwin" ]]; then
+        # OSX >= 10.11 idiosyncrasy.
+        if [[ `version "$(sw_vers -productVersion)"` -gt $(version "10.10") ]]; then
+            export DYLD_FALLBACK_LIBRARY_PATH="$LIBRARY_PATH"
+        else
+            export DYLD_LIBRARY_PATH="$LIBRARY_PATH"
+        fi  
+    fi  
+
+fi
+
+export RUBY_VERSION; RUBY_VERSION='ruby-2.2.3'
+export GEM_HOME; GEM_HOME="$env_root/gems"
+export GEM_PATH; GEM_PATH="$env_root/gems"
+export MY_RUBY_HOME; MY_RUBY_HOME="$env_root/usr/lib/ruby"
+export RUBYLIB; RUBYLIB=$MY_RUBY_HOME:$MY_RUBY_HOME/site_ruby/2.2.0:$MY_RUBY_HOME/2.2.0:$MY_RUBY_HOME/2.2.0/x86_64-darwin13:$MY_RUBY_HOME/site_ruby/2.2.0/x86_64-darwin13
+export IRBRC; IRBRC="$env_root/usr/lib/ruby/.irbrc"
+
+# Arachni packages run the system in production.
+export RAILS_ENV=production
+
+export ARACHNI_FRAMEWORK_LOGDIR="$env_root/logs/framework"
+export ARACHNI_WEBUI_LOGDIR="$env_root/logs/webui"
+

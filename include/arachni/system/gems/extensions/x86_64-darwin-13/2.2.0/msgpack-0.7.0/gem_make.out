@@ -1,0 +1,54 @@
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/msgpack-0.7.0/ext/msgpack
+/Users/zapotek/arachni-build-dir/arachni/system/usr/bin/ruby -r ./siteconf20170329-90734-f1gz98.rb extconf.rb
+checking for ruby/st.h... yes
+checking for st.h... yes
+checking for rb_str_replace() in ruby.h... yes
+checking for rb_intern_str() in ruby.h... yes
+checking for rb_sym2str() in ruby.h... yes
+checking for rb_str_intern() in ruby.h... yes
+checking for rb_block_lambda() in ruby.h... yes
+checking for rb_hash_dup() in ruby.h... yes
+checking for rb_hash_clear() in ruby.h... yes
+creating Makefile
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/msgpack-0.7.0/ext/msgpack
+make "DESTDIR=" clean
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/msgpack-0.7.0/ext/msgpack
+make "DESTDIR="
+compiling buffer.c
+compiling buffer_class.c
+compiling core_ext.c
+compiling extension_value_class.c
+compiling factory_class.c
+factory_class.c:164:16: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+    ext_type = rb_num2int(argv[0]);
+             ~ ^~~~~~~~~~~~~~~~~~~
+1 warning generated.
+compiling packer.c
+compiling packer_class.c
+packer_class.c:155:20: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+    int ext_type = rb_num2int(type);
+        ~~~~~~~~   ^~~~~~~~~~~~~~~~
+packer_class.c:266:16: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+    ext_type = rb_num2int(argv[0]);
+             ~ ^~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+compiling packer_ext_registry.c
+compiling rbinit.c
+compiling rmem.c
+compiling unpacker.c
+compiling unpacker_class.c
+unpacker_class.c:376:16: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+    ext_type = rb_num2int(argv[0]);
+             ~ ^~~~~~~~~~~~~~~~~~~
+unpacker_class.c:220:14: warning: unused function 'Unpacker_peek_next_type' [-Wunused-function]
+static VALUE Unpacker_peek_next_type(VALUE self)
+             ^
+2 warnings generated.
+compiling unpacker_ext_registry.c
+linking shared-object msgpack/msgpack.bundle
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/msgpack-0.7.0/ext/msgpack
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 msgpack.bundle ./.gem.20170329-90734-1b7mj9q/msgpack

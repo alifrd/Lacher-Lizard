@@ -1,6 +1,6 @@
 import subprocess
 from json import loads
-from general import create_project_dir,create_sqlmap_data_files,file_to_set,set_to_file
+from general import create_project_dir,file_to_set,set_to_file,create_penetration_data_files
 
 
 
@@ -17,7 +17,7 @@ class sqlmap:
             data=myfile.read()
             sqlmap.config = loads(data)
         create_project_dir(sqlmap.config["ProjectName"]+"/sqlmap")
-        sqlmap.files = create_sqlmap_data_files(sqlmap.config["ProjectName"])
+        sqlmap.files = create_penetration_data_files(sqlmap.config["ProjectName"],"sqlmap")
         sqlmap.queue = file_to_set(sqlmap.files[0])
         sqlmap.neg = file_to_set(sqlmap.files[1])
         sqlmap.pos = file_to_set(sqlmap.files[2])
@@ -27,10 +27,14 @@ class sqlmap:
     def work():
         while len(sqlmap.queue) >=1 :
             url = sqlmap.queue.pop()
-            command = "sqlmap -u '"+url+"' --batch "+"--answer='"+sqlmap.config["SQLMAP"]["answer"]+"' --threads="+sqlmap.config["SQLMAP"]["threads"]+" --timeout="+sqlmap.config["SQLMAP"]["timeout"]
+            if sqlmap.config["SQLMAP"]["manual"] == "":
+                command = "sqlmap -u '"+url+"' --batch "+"--answer='"+sqlmap.config["SQLMAP"]["answer"]+"' --threads="+sqlmap.config["SQLMAP"]["threads"]+" --timeout="+sqlmap.config["SQLMAP"]["timeout"]
+            else:
+                command = "sqlmap -u '"+url+"' --batch "+sqlmap.config["SQLMAP"]["manual"]
+        
             res = subprocess.check_output(command, shell=True).decode('ASCII');
-
-            print(res)
+            
+        
             if sqlmap.sign in res:
                chunk = res.split("---")
                sqlmap.pos.add(url+chunk[1])
@@ -38,8 +42,9 @@ class sqlmap:
             else :
                 sqlmap.neg.add(url)
                 print("- "+url)
-
-        sqlmap.update_files()
+            
+            sqlmap.update_files()
+        
     
 
     @staticmethod

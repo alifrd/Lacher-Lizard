@@ -1,0 +1,48 @@
+<div class="accordion">
+    <% issues.each do |issue| %>
+        <div class="accordion-group">
+
+            <div class="accordion-heading">
+                <%= link_to scan_issue_path( issue.scan, issue ),
+                            class: 'btn btn-mini btn-primary' do %>
+                    <i class="icon-eye-open"></i>
+                <% end %>
+
+                <%= link_to issue, "##{issue.digest}", data: { toggle: 'collapse' } %>
+            </div>
+
+            <div id="<%= issue.digest %>" class="accordion-body collapse issue">
+                <div class="accordion-inner well">
+                    <table class="table table-striped table-hover fixed">
+                        <thead>
+                        <tr>
+                            <th>URL</th>
+                            <th>Element</th>
+                            <% if issue.vector_name %>
+                            <th>Input</th>
+                            <% end %>
+                        </tr>
+                        </thead>
+                        <tr>
+                            <td class="wrap">
+                                <%= link_to issue.url, issue.url  %>
+                            </td>
+                            <td>
+                                <%= issue.vector_type %>
+                            </td>
+                            <% if issue.vector_name %>
+                            <td class="wrap">
+                                <%= issue.vector_name %>
+                            </td>
+                            <% end %>
+                        </tr>
+                    </table>
+
+                    <p>
+                        <%= m issue.description %>
+                    </p>
+                </div>
+            </div>
+        </div>
+    <%end%>
+</div>

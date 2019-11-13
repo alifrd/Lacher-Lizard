@@ -1,0 +1,16 @@
+<% if @activities.any? %>
+    <%= my_paginate @activities, param_name: 'activities_page', remote: true,
+                    params: { render: 'activities' } %>
+
+    <ul class="notifications unstyled">
+        <% @activities.each do |activity| %>
+            <li>
+                <%= render activity %>
+            </li>
+        <% end %>
+    </ul>
+<% else %>
+    <p class="alert alert-info">
+        You don't seem to have been up to much.
+    </p>
+<% end %>

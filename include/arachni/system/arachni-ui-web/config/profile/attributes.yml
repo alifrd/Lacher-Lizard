@@ -1,0 +1,76 @@
+name: 'Profile name.'
+audit_cookies: 'Audits cookies.'
+audit_cookies_extensively:
+    description: 'Submits all links and forms of the page along with the cookie permutations.'
+    warning: 'Will severely increase the scan-time.'
+audit_forms: 'Audits forms.'
+audit_headers:
+    description: 'Audits headers.'
+    notice: "Header audits use brute force. Almost
+        all valid HTTP request headers will be audited even if there's no indication
+        that the web app uses them."
+    warning: "Enabling this option will result in increased requests, maybe by an order of magnitude."
+audit_links: 'Audits links.'
+audit_jsons: 'Audits JSON inputs.'
+audit_xmls: 'Audits XML inputs.'
+audit_ui_forms: >
+  Audits input/button groups that do not belong to an HTML form but are instead
+  associated via JavaScript code.
+audit_ui_inputs: >
+  Audits orphan input elements with associated DOM events.
+authorized_by:
+    description: "Name and e-mail address of the person who authorized the scan."
+    notice: "It'll make it easier on the sys-admins during log reviews -- will be appended to the user-agent string."
+auto_scope_redundant_path_patterns: 'Limits following the amount of URLs with identical query parameter names.
+    Helps avoid auditing pages like calendars and catalogs over and over.'
+http_request_headers: 'Adds custom headers to every HTTP request.'
+scope_directory_depth_limit: 'Limits how deep the crawler can go into the directory structure of the web application.'
+scope_exclude_path_patterns: 'Excludes crawling and auditing URLs which match the given patterns.'
+scope_exclude_binaries:
+    description: 'Excludes pages with a non-text content type from the audit.'
+    notice: 'Binary content may fool pattern matching recon checks into logging false positives.'
+scope_exclude_content_patterns: 'Excludes pages whose content matches any of the given patterns.'
+scope_dom_depth_limit: 'How deep to go into the DOM tree of each page, for pages with JavaScript code.'
+scope_url_rewrites: 'Rewrites URLs based on the given rules.'
+exclude_http_cookies: 'Excludes the given cookies from the audit.'
+audit_exclude_vector_patterns: 'Excludes input vectors (parameters) whose name matches the given patterns from the audit.'
+audit_include_vector_patterns: 'Only includes input vectors (parameters) whose name matches the given patterns in the audit.'
+scope_extend_paths: 'Uses the provided list of paths to extend the scope of the crawl.'
+scope_include_subdomains: 'Allows the crawler to follow paths to subdomains.'
+audit_with_both_http_methods:
+    description: 'Audits elements with both GET and POST requests.'
+    warning: 'Will double the scan-time.'
+http_request_concurrency:
+    description: 'Maximum HTTP request concurrency.'
+    warning: 'Using a high concurrency level could kill the web server and lead to corrupted results.'
+http_request_queue_size:
+    description: 'Maximum amount of HTTP requests to keep in the queue.'
+    warning: 'More means better scheduling and better performance, fewer means less RAM consumption.'
+scope_include_path_patterns: 'Only crawls and audits URLs matching the given patterns.'
+scope_page_limit: 'Limits the amount of URLs to follow.'
+session_check_pattern: 'Matches the given pattern against the body of the session-check
+    URL to determine whether or not the scanner is logged in to the web application.'
+session_check_url: 'URL used to verify that the scanner is still logged in to the web application.'
+http_proxy_host: 'Hostname or IP address of the proxy server to use.'
+http_proxy_password: 'Proxy server password.'
+http_proxy_port: 'Proxy server port.'
+http_proxy_type: 'Proxy server type.'
+http_proxy_username: 'Proxy server username.'
+http_request_redirect_limit: 'Limits the amount of total redirects to be followed.'
+http_response_max_size:
+    description: 'Maximum size of acceptable remote resources (in bytes).'
+    notice: 'Large responses (in the MB range) can greatly increase memory consumption, you can use this option as a safeguard.'
+scope_redundant_path_patterns: 'Limits crawl on redundant pages like galleries or catalogs by following
+    URLs that match certain patterns a limited amount of times.'
+scope_restrict_paths: 'Uses the given paths instead of crawling.'
+http_user_agent: 'User-agent string to be used for HTTP requests.'
+http_request_timeout: 'HTTP Request timeout (in milliseconds).'
+scope_https_only: 'Only follow HTTPS URLs.'
+audit_link_templates: 'Regular expression with named captures to use to extract input information from generic paths.'
+input_values: 'Sample values to use to fill in web application inputs.'
+browser_cluster_pool_size: 'Amount of browser workers to keep in the pool and put to work.'
+browser_cluster_job_timeout: 'Maximum allowed time for each job in seconds.'
+browser_cluster_worker_time_to_live: 'Time-to-live of each browser (before re-spawning) counted in jobs.'
+browser_cluster_ignore_images: 'Do not load images.'
+browser_cluster_screen_width: 'Browser screen width.'
+browser_cluster_screen_height: 'Browser screen height.'

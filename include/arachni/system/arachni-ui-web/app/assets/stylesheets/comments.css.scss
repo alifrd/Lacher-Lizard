@@ -1,0 +1,22 @@
+/*
+ * Copyright 2013-2017 Sarosys LLC <http://www.sarosys.com>
+ *
+ * This file is part of the Arachni WebUI project and is subject to
+ * redistribution and commercial restrictions. Please see the Arachni WebUI
+ * web site for more information on licensing and terms of use.
+*/
+
+// Place all the styles related to the Scan::Comments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#comment_text {
+    width: 97%;
+    height: 100px;
+}
+
+form#new_comment {
+    div.modal-footer {
+        padding: 10px;
+    }
+}

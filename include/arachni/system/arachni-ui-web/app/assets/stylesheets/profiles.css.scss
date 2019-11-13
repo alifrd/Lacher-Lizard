@@ -1,0 +1,210 @@
+/*
+ * Copyright 2013-2017 Sarosys LLC <http://www.sarosys.com>
+ *
+ * This file is part of the Arachni WebUI project and is subject to
+ * redistribution and commercial restrictions. Please see the Arachni WebUI
+ * web site for more information on licensing and terms of use.
+*/
+
+// Place all the styles related to the Profiles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#profiles {
+
+    td.description, td.description p {
+        font-size: 12px;
+        color: grey;
+    }
+
+    .make-default {
+        float: left;
+    }
+
+    tr:hover .make-default {
+        visibility: visible;
+    }
+
+    label {
+        float: left;
+        display: inline;
+        padding-right: 10px;
+    }
+
+    .checkbox, input, select {
+        float: right;
+    }
+
+    input#search {
+        float: none;
+        width: 240px;
+    }
+
+    input#profile_plugins, input#profile_checks {
+        float: left;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    .help-block {
+        display: block;
+        clear: both;
+    }
+
+    .plugin-options label {
+        display: block;
+        float: none;
+    }
+
+    .plugin-options .checkbox,
+    .plugin-options input {
+        display: block;
+        float: none;
+    }
+
+    #profile_name {
+        display: block;
+        float: left;
+        clear: both;
+    }
+
+    #profile_description {
+        width: 100%;
+        height: 150px;
+    }
+
+    #profile_user_ids {
+        width: 100%;
+        height: 135px;
+    }
+
+    #profile_scope_exclude_file_extensions {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_scope_redundant_path_patterns {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_scope_url_rewrites {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_scope_restrict_paths {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_scope_extend_paths {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_scope_exclude_path_patterns {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_scope_exclude_content_patterns {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_scope_include_path_patterns {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_http_cookies {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_checks {
+        display: inline;
+    }
+
+    .plugin-options .label {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .plugin-options input {
+        display: inline;
+    }
+
+    #profile_http_request_headers {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_http_response_max_size {
+        width:  20%;
+    }
+
+    #profile_audit_exclude_vector_patterns {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_audit_include_vector_patterns {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_audit_link_templates {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_input_values {
+        width:  100%;
+        height: 150px;
+    }
+
+    #profile_session_check_url {
+        width:  90%;
+        float: left;
+    }
+
+    #profile_session_check_pattern {
+        width:  90%;
+        float: left;
+    }
+
+    .profile_platforms {
+        label {
+            clear: both;
+
+            input {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    #checks, #plugins {
+        .accordion-group:nth-child(even) {
+            background-color: #E9E9E9;
+        }
+        .accordion-group {
+            border: 0px;
+
+            input[type="checkbox"] {
+                position: relative;
+                right: 15px;
+                top: 8px;
+            }
+        }
+    }
+
+    .numeric {
+        width: 55px;
+    }
+
+    .form-actions input.btn {
+        float: left;
+    }
+}

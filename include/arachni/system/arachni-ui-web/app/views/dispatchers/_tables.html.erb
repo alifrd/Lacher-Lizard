@@ -1,0 +1,7 @@
+<h2>Available <small>[<%= @counts[:alive]['total'] %>]</small></h2>
+<%= render partial: 'table', locals: { dispatchers: @alive_dispatchers } %>
+
+<h2>Unreachable <small>[<%= @counts[:unreachable]['total'] %>]</small></h2>
+<%= render partial: 'table',
+           locals: { dispatchers: @unreachable_dispatchers,
+                     treat_as_alive: false } %>

@@ -1,0 +1,97 @@
+<%
+params[:tab]      ||= 'all'
+params[:scan_id]  ||= @scan.id
+params[:overview] ||= @scan.overview?
+
+active_tab = params[:tab]
+
+counts = Hash.new( 0 )
+%w(all verified pending-verification false-positives awaiting-review fixed).each do |type|
+   counts[type] = issue_filter( type ).count(:all)
+end
+
+issues = issue_filter( active_tab )
+opts   = params.dup
+opts.delete( :format )
+
+url_method =    if !local_assigns.include?( :url_method_type )
+                    method( :scan_issues_path )
+                else
+                    method( url_method_type )
+                end
+%>
+
+<h2>Issues <small>[<%= counts['all'] %>]</small></h2>
+
+<% if issues.any? %>
+    <% if issues.first.scan.running? %>
+        <p class="alert alert-info">
+            Issues may be missing some context while the scan is running.<br/>
+            You better wait until the scan is over to review them as the meta-analysis
+            phase will flag probable false-positives and other untrusted issues
+            accordingly.
+        </p>
+    <% end %>
+<% end %>
+
+<%= render '/issues/table_tabs',
+            issues:     issues,
+            counts:     counts,
+            active_tab: active_tab,
+            url_method: url_method,
+            opts:       opts
+%>
+
+<% if issues.any? %>
+    <div class="hidden-phone row-fluid">
+        <div class="span3">
+            <% if issues.any? %>
+                <p class="muted">
+                    <%= issue_tab_description( active_tab ) %>
+                </p>
+            <% end %>
+            <span id="legend-reference"></span>
+            <%= render partial: 'issues/legend', locals: { issues: issues } %>
+        </div>
+        <div class="span9" id="table-container">
+            <table class="table table-condensed fixed issue-groups">
+                <thead>
+                    <tr>
+                        <th style="width: 2%"></th>
+                        <th style="width: 3%"></th>
+                        <th style="width: 65%">URL</th>
+                        <th style="width: 25%">Input</th>
+                        <th style="width: 5%">Element</th>
+                    </tr>
+                </thead>
+
+                <% group_issues_by_type(issues).each do |type, gissues| %>
+                    <%= render 'issues/group_row',
+                               type:       type,
+                               issues:     gissues,
+                               active_tab: active_tab
+                    %>
+                <% end %>
+            </table>
+        </div>
+    </div>
+
+    <div class="visible-phone">
+        <a href="#" onclick="$('.issue').collapse( 'show' ); return false;">Expand all</a>
+        |
+        <a href="#" onclick="$('.issue').collapse( 'hide' ); return false;">Collapse all</a>
+
+        <hr/>
+
+        <%= render partial: '/issues/twin_accordion',
+                   locals: {
+                           issues:     issues,
+                           class_name: 'span6'
+                   }
+        %>
+    </div>
+<% else %>
+    <p class="alert alert-info">
+        No issues discovered<%= ' yet' if @scan.active? %>.
+    </p>
+<% end %>

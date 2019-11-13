@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+env_root="$(dirname ${BASH_SOURCE[0]})"
+
+writtable="
+    arachni-ui-web/config/component_cache
+    arachni-ui-web/db
+    arachni-ui-web/tmp
+    logs
+    home
+"
+
+for directory in $writtable; do
+    directory="$env_root/$directory"
+
+    if [[ ! -w "$directory" ]]; then
+        echo "[ERROR] Directory and subdirectories must be writtable: $directory"
+        exit 1
+    fi
+done
+
+if [[ -s "$env_root/environment" ]]; then
+    source "$env_root/environment"
+else
+    echo "ERROR: Missing environment file: '$env_root/environment" >&2
+    exit 1
+fi
+

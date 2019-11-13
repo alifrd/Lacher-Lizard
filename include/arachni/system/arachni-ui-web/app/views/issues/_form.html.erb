@@ -1,0 +1,81 @@
+<%= simple_form_for( [@issue.scan, @issue] ) do |f| %>
+    <%= f.error_notification %>
+
+    <h3>State</h3>
+
+    <div class="form-inputs">
+        <div class="row-fluid">
+            <div class="span6">
+                <%= f.input :fixed, label: 'Mark as fixed' %>
+            </div>
+            <div class="span6">
+                <%= f.input :false_positive,
+                            label: 'Mark as false positive' %>
+
+                <p class="help-block" id="false-positive-report-nudge">
+                    <em>You may also want to <a target="_blank" href="https://github.com/Arachni/arachni/issues">
+                    report this upstream</a> so that it won't happen again.</em>
+                </p>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <%= f.input :requires_verification %>
+
+                <p class="help-block">
+                    Does this issue require verification by a human?
+                </p>
+            </div>
+        </div>
+
+        <div id="verification-container" class="well hide">
+            <div class="row-fluid">
+                <div class="span6">
+                    <%= f.input :verified %>
+
+                    <p class="help-block">
+                        Flag this issue as verified and please add the verification
+                        steps you followed to the text-area bellow.
+                    </p>
+                </div>
+            </div>
+
+            <hr/>
+
+            <%= f.input :verification_steps, hint: 'You can use Markdown for text formatting.' %>
+        </div>
+
+        <hr/>
+
+        <h3>Remediation</h3>
+
+        <% if !@issue.remedy_guidance.to_s.empty? %>
+            <h4>Guidance</h4>
+
+            <div class="remedy_guidance">
+                <%= m @issue.remedy_guidance %>
+            </div>
+        <% end %>
+
+        <% if !@issue.remedy_code.to_s.empty? %>
+            <h4>Sample code</h4>
+            <code><%= @issue.remedy_code %></code>
+        <% end %>
+
+        <div class="row-fluid">
+            <div class="span12">
+                <%= f.input :remediation_steps, label: 'Steps',
+                            hint: 'You can use Markdown for text formatting.' %>
+
+                <p class="help-block">
+                    Describe a way to remedy this issue.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <%= f.button :submit %>
+    </div>
+<% end %>

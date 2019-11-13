@@ -1,0 +1,90 @@
+<%= simple_form_for( @scan ) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="row-fluid">
+        <div class="span6">
+            <%= f.input :url, as: :url, label: false, placeholder: 'Target URL',
+                        hint: 'Full URL of the targeted web application (must
+                        include the appropriate protocol, http or https).',
+                        disabled: !!@scan.id %>
+        </div>
+
+        <div class="span6">
+            <div class="control-group">
+                <div class="controls">
+                    <select class="span2" name="scan[profile_id]"
+                            id="scan_profile" <%= 'disabled' if @scan.active? || @scan.finished? %>>
+                        <% @profiles.each do |p| %>
+                            <option <%= 'selected' if @scan.profile == p ||
+                                        (params[:scan] || {})[:profile_id].to_i == p.id ||
+                                        p.default? %>
+                                    value="<%= p.id %>">
+
+                                <%= p.name %>
+
+                                <% if p.global? %>
+                                 (Global)
+                                <% elsif p.owner != current_user %>
+                                  (by <%= p.owner %>)
+                                <% end %>
+                            </option>
+                        <%end%>
+                    </select>
+
+                    <p class="help-block">
+                        Configuration profile to use.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span6">
+            <%= f.input :description, label: false, placeholder: 'Description',
+                        hint: 'You can use Markdown for text formatting.' %>
+        </div>
+
+        <% span = 'span6' %>
+        <% if @scan.root? && current_user.scan_groups.any? %>
+            <% span = 'span3' %>
+
+            <div class="span3">
+                <%= f.association :scan_groups, label: 'Place in groups:',
+                                  collection: current_user.scan_groups,
+                                  label_method: lambda { |grp|
+                                      s  = "#{grp.name}"
+                                      s += " (by #{grp.owner})" if current_user != grp.owner
+                                      s
+                                  }
+                %>
+            </div>
+        <% end %>
+
+        <div class="<%= span %>">
+            <% if @scan.root? && User.count > 1 %>
+                <%= f.association :users, label: 'Share with:',
+                    collection: User.all - [current_user] %>
+            <% end %>
+        </div>
+    </div>
+
+    <%= f.input :type, as: :hidden, input_html: { value: (@scan.type || 'direct') } %>
+
+    <% if !@scan.finished? %>
+        <%= render partial: 'form_advanced_options', locals: { f: f } %>
+    <% end %>
+
+    <%= f.button :submit, id: 'go-btn',
+                 class: 'btn btn-primary',
+                 value: @scan.id ? 'Save' : 'Go!' %>
+
+    <% if @scan.id %>
+        <%= link_to scan_path( @scan ), title: 'Back to scan',
+                    class: 'btn' do %>
+            Back to scan
+        <% end %>
+    <% end %>
+
+
+<% end %>

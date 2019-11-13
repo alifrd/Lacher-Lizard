@@ -1,0 +1,9 @@
+Name: libecpg_compat
+Description: PostgreSQL libecpg_compat library
+Url: http://www.postgresql.org/
+Version: 9.4.5
+Requires: 
+Requires.private: libecpg libpgtypes
+Cflags: -I/Users/zapotek/arachni-build-dir/arachni/system/usr/include
+Libs: -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -lecpg_compat
+Libs.private: -L/Users/zapotek/arachni-build-dir/arachni/system/usr/lib -lpq -lm -lpthread

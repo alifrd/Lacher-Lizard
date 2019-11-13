@@ -1,0 +1,342 @@
+<% title @issue.to_s.html_safe %>
+
+<% breadcrumb_add 'Scans', @issue.scan %>
+<% breadcrumb_add @issue.scan, @issue.scan %>
+
+<%
+
+   browser_subnav = {}
+   if @issue.dom_transitions.any?
+       browser_subnav = {
+           browser_data: 'Browser data',
+           browser_data_transitions: '<small>&mdash; Transitions</small>',
+           browser_data_body: '<small>&mdash; Body</small>',
+       }
+   end
+
+   subnav(
+       {
+           identification_data: 'Identification data',
+           vector_data: 'Vector data',
+       }.merge(browser_subnav).merge({
+           http_data: 'HTTP data',
+           http_data_request: '<small>&mdash; Request</small>',
+           http_data_response: '<small>&mdash; Response</small>'
+       }),
+       top: 'Overview'
+   )
+
+   not_available = '<p class="alert alert-info">Not available</p>'.html_safe
+%>
+
+<% if @issue.references.any? %>
+    <% add_to_affixed_sidebar do %>
+        <div id="references">
+            <h3>References</h3>
+
+            <ul>
+                <% @issue.references.each do |k, v| %>
+                <li><%= link_to k, v %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+<% end %>
+
+<div id="issues">
+    <div class="page-header">
+        <h1><%= @issue %>,</h1>
+
+        <div class="lead">
+            at <%= link_to @issue.url, @issue.url %>
+            <small>&ndash; found by <%= link_to @issue.scan, scan_path( @issue.scan ) %>.</small>
+        </div>
+
+        <p class="pull-left label severity-<%= @issue.severity.downcase %>">
+            <%= @issue.severity %> severity
+        </p>
+    </div>
+
+    <div class="description">
+        <%= m @issue.description %>
+    </div>
+
+    <hr/>
+
+    <% if @issue.remarks.any? %>
+        <div class="alert alert-warning">
+            <i class="icon-exclamation-sign"></i>
+            Remarks:
+
+            <ul class="unstyled">
+                <% @issue.remarks.values.flatten.each do |remark| %>
+                    <li><%= remark %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <hr/>
+    <%= render 'status_messages' %>
+
+    <ul class="nav nav-tabs" id="issue-tabs"
+        data-table-container="table-container">
+        <li class="active">
+            <a href="#issue-<%= @issue.digest %>-technical-details" data-toggle="tab">
+                <i class="icon-file-alt"></i>
+                Technical details
+            </a>
+        </li>
+
+        <li>
+            <a href="#issue-<%= @issue.digest %>-discussion" data-toggle="tab">
+                <i class="icon-comments"></i>
+                Discussion <small>[<%= @issue.comments.count %>]</small>
+            </a>
+        </li>
+
+        <% if @issue.has_verification_steps? %>
+            <li>
+                <a href="#issue-<%= @issue.digest %>-verification" data-toggle="tab">
+                    <i class="icon-check"></i>
+                    Verification
+                </a>
+            </li>
+        <% end %>
+
+        <% if @issue.has_remediation_steps? %>
+            <li>
+                <a href="#issue-<%= @issue.digest %>-remediation" data-toggle="tab">
+                    <i class="icon-asterisk"></i>
+                    Remediation
+                </a>
+            </li>
+        <% end %>
+
+        <li>
+            <a href="#issue-<%= @issue.digest %>-review" data-toggle="tab">
+                <i class="icon-edit"></i>
+                Review
+            </a>
+        </li>
+
+        <li>
+            <a href="#issue-<%= @issue.digest %>-timeline" data-toggle="tab">
+                <i class="icon-reorder"></i>
+                Timeline
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="issue-<%= @issue.digest %>-technical-details" class="tab-pane active in">
+
+            <h3 id="identification_data">Identification data</h3>
+            <table class="table fixed">
+                <thead>
+                    <tr>
+                        <th>
+                            Injected seed
+
+                            <% if @issue.seed %>
+                            <a href="#" rel="tooltip"
+                               title="This seed uncovered the vulnerable vector during the audit.">
+                                <i class="icon-info-sign"></i>
+                            </a>
+                            <% end %>
+                        </th>
+                        <th>
+                            Signature
+
+                            <% if @issue.signature %>
+                            <a href="#" rel="tooltip"
+                               title="This signature was used to detect the vulnerability.">
+                                <i class="icon-info-sign"></i>
+                            </a>
+                            <% end %>
+                        </th>
+                        <th>
+                            Proof
+                            <% if @issue.proof %>
+                                <a href="#" rel="tooltip"
+                                   title="This string was used to verify the existence of the vulnerability.">
+                                    <i class="icon-info-sign"></i>
+                                </a>
+                            <% end %>
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td class="wrap"><%= @issue.seed ? @issue.seed : not_available %></td>
+                    <td class="wrap"><%= @issue.signature || not_available %></td>
+                    <td class="wrap">
+                        <% if @issue.proof %>
+                            <pre><%= @issue.proof.recode %></pre>
+                        <% else %>
+                            <%= not_available %>
+                        <% end %>
+                    </td>
+                </tr>
+            </table>
+
+            <hr/>
+
+            <h3 id="vector_data">Vector data</h3>
+
+            <% if @issue.vector_html %>
+                <pre><%= @issue.vector_html.recode %></pre>
+            <% end %>
+
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Type</th>
+                <th>URL</th>
+
+                <% if @issue.vector_inputs.any? %>
+                    <th>Inputs</th>
+                <% end %>
+              </tr>
+              </thead>
+              <tr>
+                <td>
+                    <code><%= @issue.vector_type %></code>
+                </td>
+                <td>
+                  <%= link_to @issue.url, @issue.url %>
+                </td>
+
+                <% if @issue.vector_inputs.any? %>
+                <td>
+                  <table id="parameters" class="table key-values">
+                    <% @issue.vector_inputs.each do |k, v| %>
+                        <tr>
+                          <th>
+                            <%= k.recode %>
+                          </th>
+                          <td>
+                            <%= v.recode %>
+                          </td>
+                        </tr>
+                    <% end %>
+                  </table>
+                </td>
+                <% end %>
+              </tr>
+            </table>
+
+          <hr/>
+
+          <% if @issue.dom_transitions.any? %>
+              <h3 id="browser_data">Browser data</h3>
+
+              <h4 id="browser_data_transitions">Transitions</h4>
+              <%= render 'transitions' %>
+
+              <h4 id="browser_data_body">Body</h4>
+              <% if @issue.dom_body %>
+                  <% if @issue.dom_body_contains_proof? %>
+                      <p class="muted">
+                        Proof is highlighted in red and scroll-centered.
+                      </p>
+                  <% end %>
+
+                  <pre id="browser_body_container"><%= highlight_proof( @issue.dom_body, @issue.proof, 'proof' ).recode.html_safe %></pre>
+
+              <% else %>
+                  <p class="alert alert-info">
+                    Response is not available
+                  </p>
+              <% end %>
+              <hr/>
+            <% end %>
+
+            <h3 id="http_data">HTTP data</h3>
+
+            <h4 id="http_data_request">Request</h4>
+            <pre><%= @issue.request %></pre>
+
+            <h4 id="http_data_response">Response</h4>
+
+            <% if @issue.response %>
+                <% if @issue.response_contains_proof? %>
+                    <p class="muted">
+                        Proof is highlighted in red and scroll-centered.
+                    </p>
+                <% end %>
+
+                <pre id="http_response_container"><%= highlight_proof( @issue.response, @issue.proof, 'proof' ).recode.html_safe %></pre>
+
+            <% else %>
+                <p class="alert alert-info">
+                    Response is not available
+                </p>
+            <% end %>
+        </div>
+
+        <div id="issue-<%= @issue.digest %>-discussion" class="tab-pane">
+            <%= render partial: 'comments/list',
+                       locals: { comments: @issue.comments,
+                                 list_url: scan_issue_comments_path( @issue.scan, @issue, partial: true )
+                       } %>
+
+            <%= render partial: 'comments/form', locals: { commentable: @issue } %>
+        </div>
+
+        <% if @issue.has_verification_steps? %>
+            <div id="issue-<%= @issue.digest %>-verification" class="tab-pane">
+                <h3>
+                    Verification steps
+                </h3>
+
+                <p>
+                    <%= m @issue.verification_steps %>
+                </p>
+
+            </div>
+        <% end %>
+
+        <% if @issue.has_remediation_steps? %>
+            <div id="issue-<%= @issue.digest %>-remediation" class="tab-pane">
+                <h3>
+                    Remediation steps
+                </h3>
+
+                <p>
+                    <%= m @issue.remediation_steps %>
+                </p>
+
+            </div>
+        <% end %>
+
+        <div id="issue-<%= @issue.digest %>-review" class="tab-pane">
+            <%= render 'form' %>
+        </div>
+
+        <div id="issue-<%= @issue.digest %>-timeline" class="tab-pane">
+            <ul class="unstyled">
+
+            <% @issue.timeline.each do |t| %>
+                <li>
+                    <%= t.action_description.capitalize %>
+
+                    <% if t.actor %>
+                        by <%= link_to t.actor, user_path( t.actor ) %>
+                    <% end %>
+
+                    <small class="muted">&ndash; <%= l t.created_at %></small>
+
+                    <% if t.text %>
+                        <blockquote class="muted">
+                            <%= t.text %>
+                        </blockquote>
+                    <% end %>
+                </li>
+            <% end %>
+
+                <li>Created <small class="muted">&ndash; <%= l @issue.created_at %></small></li>
+            </ul>
+        </div>
+
+    </div>
+</div>

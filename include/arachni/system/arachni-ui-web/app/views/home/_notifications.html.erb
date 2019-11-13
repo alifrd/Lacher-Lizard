@@ -1,0 +1,29 @@
+<% if @notifications.any? %>
+
+    <% if @notifications.unread.any? %>
+        <p>
+            <%= link_to mark_read_notifications_path, class: 'btn btn-inverse',
+                        method: :patch do %>
+                <i class="icon-ok"></i>
+                Mark all read
+            <% end %>
+        </p>
+    <% end %>
+
+    <%= my_paginate @notifications, param_name: 'notifications_page', remote: true,
+                    params: { render: 'notifications' } %>
+
+    <ul class="notifications unstyled">
+
+        <% @notifications.each do |notification| %>
+            <li class="notification <%= notification.unread? ? 'alert alert-info' : '' %>" >
+                <%= render notification, with: [ :actor ] %>
+            </li>
+        <% end %>
+
+    </ul>
+<% else %>
+    <p class="alert alert-info">
+        No notifications are available.
+    </p>
+<% end %>

@@ -1,0 +1,13 @@
+<% title "Home" %>
+
+<div class="page-header">
+    <h1>Welcome to Arachni, <small>this is your dashboard.</small></h1>
+</div>
+
+<div id="dashboard"
+     data-refresh-url="<%= root_path( params.merge( partial: true ) ) %>"
+     data-refresh-rate="<%= HardSettings.dashboard_refresh_rate %>"
+>
+
+    <%= render 'dashboard' %>
+</div>

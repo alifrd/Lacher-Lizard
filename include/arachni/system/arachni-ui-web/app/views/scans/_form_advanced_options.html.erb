@@ -1,0 +1,39 @@
+<% show_crawl_options = true if !local_assigns.include?( :show_crawl_options ) %>
+
+<div class="accordion" id="scan-advanced-options-accordion">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" href="#advanced" data-toggle="collapse">
+                Advanced options
+            </a>
+        </div>
+
+        <div id="advanced" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <ul class="nav nav-tabs">
+                    <% if !@scan.active? %>
+                    <li class="active">
+                        <a href="#distribution" data-toggle="tab">Distribution</a>
+                    </li>
+                    <% end %>
+                    <li>
+                        <a href="#scheduling" data-toggle="tab">Scheduling</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <% if !@scan.active? %>
+                    <div class="tab-pane active" id="distribution">
+                        <%= render partial: 'form_advanced_options_distribution', locals: { f: f } %>
+                    </div>
+                    <% end %>
+
+                    <div class="tab-pane" id="scheduling">
+                        <%= render partial: 'form_advanced_options_scheduling',
+                                   locals: { f: f, show_crawl_options: show_crawl_options } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

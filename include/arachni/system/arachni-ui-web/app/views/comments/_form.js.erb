@@ -1,0 +1,4 @@
+<% commentable ||= @commentable %>
+
+$('#comment-form').html( "<%= escape_javascript( render partial: 'comments/form.html', locals: { commentable: commentable } ) %>" );
+window.hookFormOnSubmit();

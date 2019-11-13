@@ -1,0 +1,28 @@
+language: ruby
+
+rvm:
+  - 2.0.0
+  - 2.1.6
+  - 2.2.2
+  - ruby-head
+  - rbx-2
+  - jruby-19mode
+  - jruby-head
+
+os:
+  - linux
+  - osx
+
+branches:
+  only:
+    - master
+
+gemfile:
+  - Gemfile
+
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+    - rvm: jruby-head
+    - rvm: jruby-19mode
+      os: osx

@@ -1,0 +1,65 @@
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/sqlite3-1.3.13/ext/sqlite3
+/Users/zapotek/arachni-build-dir/arachni/system/usr/bin/ruby -r ./siteconf20170329-90734-znfv9k.rb extconf.rb
+/Users/zapotek/arachni-build-dir/arachni/system/usr/lib/ruby/2.2.0/x86_64-darwin13/enc/encdb.bundle: [BUG] Segmentation fault
+ruby 2.0.0p481 (2014-05-08 revision 45883) [universal.x86_64-darwin13]
+
+-- Crash Report log information --------------------------------------------
+   See Crash Report log file under the one of following:
+     * ~/Library/Logs/CrashReporter
+     * /Library/Logs/CrashReporter
+     * ~/Library/Logs/DiagnosticReports
+     * /Library/Logs/DiagnosticReports
+   the more detail of.
+
+-- Control frame information -----------------------------------------------
+c:0002 p:-17543435209530 s:0004 e:000003 TOP    [FINISH]
+c:0001 p:0000 s:0002 E:000bc8 TOP    [FINISH]
+
+
+-- C level backtrace information -------------------------------------------
+
+-- Other runtime information -----------------------------------------------
+
+* Loaded script: /System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby
+
+* Loaded features:
+
+    0 enumerator.so
+
+[NOTE]
+You may have encountered a bug in the Ruby interpreter or extension libraries.
+Bug reports are welcome.
+For details: http://www.ruby-lang.org/bugreport.html
+
+checking for sqlite3.h... yes
+checking for pthread_create() in -lpthread... yes
+checking for sqlite3_libversion_number() in -lsqlite3... yes
+checking for rb_proc_arity()... yes
+checking for rb_integer_pack()... yes
+checking for sqlite3_initialize()... yes
+checking for sqlite3_backup_init()... yes
+checking for sqlite3_column_database_name()... no
+checking for sqlite3_enable_load_extension()... yes
+checking for sqlite3_load_extension()... yes
+checking for sqlite3_open_v2()... yes
+checking for sqlite3_prepare_v2()... yes
+checking for sqlite3_int64 in sqlite3.h... yes
+checking for sqlite3_uint64 in sqlite3.h... yes
+creating Makefile
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/sqlite3-1.3.13/ext/sqlite3
+make "DESTDIR=" clean
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/sqlite3-1.3.13/ext/sqlite3
+make "DESTDIR="
+compiling backup.c
+compiling database.c
+compiling exception.c
+compiling sqlite3.c
+compiling statement.c
+linking shared-object sqlite3/sqlite3_native.bundle
+ld: warning: directory not found for option '-L/lib'
+
+current directory: /Users/zapotek/arachni-build-dir/arachni/system/gems/gems/sqlite3-1.3.13/ext/sqlite3
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 sqlite3_native.bundle ./.gem.20170329-90734-16ir5h6/sqlite3

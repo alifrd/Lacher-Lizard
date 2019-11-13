@@ -1,0 +1,39 @@
+<% grouped_issues.each do |trust, by_severity| %>
+    <% next if by_severity.empty? %>
+
+    <h3>
+        <a
+            id="summary-issues-<%= trust %>"
+            href="#!/summary/issues/<%= trust %>"
+        >
+
+            <%= trust.to_s.capitalize %>
+
+            <span class="badge">
+                <%= graph_data[:trust][trust.to_s.capitalize] %>
+            </span>
+        </a>
+    </h3>
+
+    <% by_severity.each do |severity, issues_by_name| %>
+
+        <h4>
+            <a
+                id="summary-issues-<%= trust %>-severity-<%= severity %>"
+                href="#!/summary/issues/<%= trust %>/severity/<%= severity %>"
+            >
+                <%= severity.to_s.capitalize %> severity
+
+                <span class="badge">
+                    <%= graph_data["#{trust}_severities".to_sym][severity.to_sym] %>
+                </span>
+            </a>
+        </h4>
+
+        <div class="row">
+            <%= erb 'summary/issues/by_name.erb', issues: issues_by_name.values, trust: trust %>
+        </div>
+
+        <hr/>
+    <% end %>
+<% end %>

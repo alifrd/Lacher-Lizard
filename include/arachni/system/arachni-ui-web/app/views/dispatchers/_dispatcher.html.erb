@@ -1,0 +1,123 @@
+<% if !@dispatcher.reachable? %>
+    <p class="alert alert-warning">
+        This Dispatcher could not be reached, the data displayed here are
+        from when it was last available and will most likely be out of date.
+    </p>
+<% end %>
+
+<div class="row-fluid">
+    <div class="span10">
+        <div class="page-header">
+            <h1><%= @dispatcher.url %></h1>
+            <% if !@dispatcher.description.to_s.empty? %>
+                <div class="lead"><%= m @dispatcher.description %></div>
+            <% end %>
+        </div>
+    </div>
+    <div class="span2">
+        <% if @dispatcher.global? %>
+            <p class="label label-info">
+                Global
+            </p>
+        <% end %>
+
+        <% if can? :edit, @dispatcher %>
+            <%= link_to edit_dispatcher_path( @dispatcher ), title: 'Edit Dispatcher',
+                        class: 'btn btn-small btn-warning' do %>
+                <i class="icon-pencil"></i>
+            <% end %>
+        <% end %>
+
+        <% if can? :delete, @dispatcher %>
+            <%= link_to @dispatcher, title: 'Delete Dispatcher',
+                        method: :delete, class: 'btn btn-small btn-danger',
+                        data: { confirm: 'Are you sure you want to delete this Dispatcher?' } do %>
+                <i class="icon-trash"></i>
+            <% end %>
+        <% end %>
+    </div>
+</div>
+
+<div id="node-info">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+
+            <th>
+                Workload score
+
+                <a href="#" rel="tooltip" data-placement="bottom"
+                   title="Signifies the Dispatcher's workload.">
+                    <i class="icon-info-sign"></i>
+                </a>
+            </th>
+
+            <th>
+                Pipe-ID
+
+                <a href="#" rel="tooltip" data-placement="bottom"
+                   title="Identification for the bandwidth pipe to which
+                   the Dispatcher is connected.">
+                    <i class="icon-info-sign"></i>
+                </a>
+            </th>
+
+            <th>Grid member?</th>
+
+            <% if @dispatcher.grid_member? %>
+                <th>Neighbours</th>
+            <% end %>
+
+            <th class="hidden-phone">
+                Desired pool size
+
+                <a href="#" rel="tooltip" data-placement="bottom"
+                   title="Amount of Instances which should be available
+                   for dispatch at any given moment.">
+                    <i class="icon-info-sign"></i>
+                </a>
+            </th>
+            <th class="hidden-phone">
+                Current pool size
+
+                <a href="#" rel="tooltip" data-placement="bottom"
+                   title="Amount of Instances which are available for dispatch.">
+                    <i class="icon-info-sign"></i>
+                </a>
+            </th>
+            <th class="hidden-phone">
+                Consumed PIDs
+
+                <a href="#" rel="tooltip" data-placement="bottom"
+                   title="OS process IDs used up by the Dispatcher.">
+                    <i class="icon-info-sign"></i>
+                </a>
+            </th>
+        </tr>
+        </thead>
+        <tr>
+            <td><%= @dispatcher.name || '(Not set)' %></td>
+            <td><%= @dispatcher.score %></td>
+            <td><%= @dispatcher.pipe_id || '(Not set)' %></td>
+            <td><%= @dispatcher.grid_member? ? 'Yes' : 'No' %></td>
+
+            <% if @dispatcher.grid_member? %>
+                <td>
+                    <% @dispatcher.neighbours.map do |neighbour| %>
+                        <%= link_to neighbour, dispatcher_path( neighbour )%>
+                    <% end.join( ', ' ) %>
+                </td>
+            <% end %>
+
+            <td class="hidden-phone"><%= @dispatcher.statistics['init_pool_size'] %></td>
+            <td class="hidden-phone"><%= @dispatcher.statistics['curr_pool_size'] %></td>
+            <td class="hidden-phone"><%= @dispatcher.consumed_pids.join( ', ' ) %></td>
+        </tr>
+    </table>
+</div>
+
+<h2>Instances</h2>
+<div id="proc-tables">
+    <%= render partial: 'proc_tables', locals: { dispatcher: @dispatcher.finished_jobs } %>
+</div>

@@ -1,0 +1,75 @@
+<% title 'Users' %>
+
+<div id="users">
+    <div class="page-header">
+        <h1>Users</h1>
+
+        <div class="lead">
+            <% if can? :create, User %>
+                Manage and maintain the list of people who are allowed access to
+                this interface.
+            <% else %>
+                See information about your fellow users.
+            <% end %>
+        </div>
+    </div>
+
+    <% if can? :create, User %>
+        <p>
+            <%= link_to new_user_path, class: 'btn btn-primary' do %>
+                <i class="icon-plus"></i> New User
+            <% end %>
+        </p>
+    <% end %>
+
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <% if current_user.admin? %>
+                <th>Scans</th>
+            <% end %>
+            <th></th>
+        </tr>
+        </thead>
+        <% @users.each do |user| %>
+            <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <% if current_user.admin? %>
+                    <td>
+                        <% if user.own_scans.any? %>
+                            <%= user.own_scans.map { |scan| link_to scan.url, scan_path( scan ) }.join( ', ' ).html_safe %>
+                        <% else %>
+                            None yet...
+                        <% end %>
+                    </td>
+                <% end %>
+                <td>
+                    <% if can? :show, user %>
+                        <%= link_to user, title: 'Show user',
+                                    class: 'btn btn-small btn-info' do %>
+                            <i class="icon-eye-open"></i>
+                        <% end %>
+                    <% end %>
+
+                    <% if can? :edit, user %>
+                        <%= link_to edit_user_path( user ), title: 'Edit user',
+                                    class: 'btn btn-small btn-warning' do %>
+                            <i class="icon-pencil"></i>
+                        <% end %>
+                    <% end %>
+
+                    <% if can? :destroy, user %>
+                        <%= link_to user, title: 'Delete user',
+                                    class: 'btn btn-small btn-danger', method: :delete,
+                                    data: { confirm: 'Are you sure?' } do %>
+                            <i class="icon-trash"></i>
+                        <% end %>
+                    <% end %>
+                </td>
+            </tr>
+        <% end %>
+    </table>
+</div>

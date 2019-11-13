@@ -1,0 +1,41 @@
+<h2>Summary</h2>
+
+<div id="summary-tabs">
+    <% if report.issues.any? %>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#!/summary/charts">Charts</a>
+            </li>
+            <li>
+                <a href="#!/summary/issues">
+                    Issues
+
+                    <span class="badge">
+                        <%= report.issues.size %>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#!/summary/owasp_top_10">OWASP Top 10</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="summary-charts">
+                <%= erb 'summary/charts.erb' %>
+            </div>
+
+            <div class="tab-pane" id="summary-issues">
+                <%= erb 'summary/issues.erb' %>
+            </div>
+
+            <div class="tab-pane" id="summary-owasp_top_10">
+                <%= erb 'summary/owasp_top_10.erb' %>
+            </div>
+        </div>
+    <% else %>
+        <p class="alert alert-info">
+            No issues have been identified.
+        </p>
+    <% end %>
+</div>

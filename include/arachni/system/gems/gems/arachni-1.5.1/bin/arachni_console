@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+=begin
+    Copyright 2010-2017 Sarosys LLC <http://www.sarosys.com>
+
+    This file is part of the Arachni Framework project and is subject to
+    redistribution and commercial restrictions. Please see the Arachni Framework
+    web site for more information on licensing and terms of use.
+=end
+
+require_relative '../lib/arachni'
+require_relative '../ui/cli/output'
+require 'irb'
+require 'irb/completion'
+
+include Arachni
+include UI::Output
+
+puts BANNER
+puts
+puts "(Call the 'mute' method to mute framework output.)"
+
+IRB.setup nil
+IRB.conf[:MAIN_CONTEXT] = IRB::Irb.new.context
+
+HISTFILE = '~/.irb_history'
+MAXHISTSIZE = 300
+
+begin
+    histfile = File.expand_path( HISTFILE )
+    if File.exists?( histfile )
+        lines = IO.readlines( histfile ).map { |line| line.chomp }
+        Readline::HISTORY.push( *lines )
+    end
+    Kernel.at_exit do
+        lines = Readline::HISTORY.to_a.reverse.uniq.reverse
+        lines = lines[-MAXHISTSIZE, MAXHISTSIZE] if lines.size > MAXHISTSIZE
+        File.open( histfile, 'a' ) { |f| f.write( lines.join( "\n" ) ) }
+    end
+rescue => e
+    puts "Error when configuring permanent history: #{e}"
+end
+
+require 'irb/ext/multi-irb'
+IRB.irb nil, Arachni

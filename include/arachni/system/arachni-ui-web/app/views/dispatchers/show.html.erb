@@ -1,0 +1,11 @@
+<% title @dispatcher.url %>
+<% breadcrumb_add 'Dispatchers', dispatchers_path %>
+
+<div id="dispatchers">
+    <div id="dispatcher"
+         data-refresh-url="<%= dispatcher_path( @dispatcher, partial: true ) %>"
+         data-refresh-rate="<%= HardSettings.dispatcher_refresh_rate %>"
+    >
+        <%= render @dispatcher %>
+    </div>
+</div>
