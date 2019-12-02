@@ -10,18 +10,18 @@ _abc.com/news/123da224/%8c%4d../weather-middle-east  => abc.com/news/randnum/enc
 ##FrameWorks & APPS
 _crawler core written from bucky roberts Spider's (Most of it changed) and sql injection & xss testing with sqlmap and arachni scanner framworks_
 
-_Spider_[GitHub](https://github.com/buckyroberts/Spider)
-_Sqlmap_[GitHub](http://sqlmap.org/)
-_Xss_[GitHub](http://sqlmap.org/)
+_Spider_[ GitHub ](https://github.com/buckyroberts/Spider)
+_Sqlmap_[ GitHub ](http://sqlmap.org/)
+_Xss_[ GitHub ](http://sqlmap.org/)
 
 
 ##About US
 _i'm Ali Farhadian who are coding of this Thesis project of UUT university_
 _this project Supervisor Professor Mir Saman Tajbakhsh who are give the first idea about it..._
 
-_Ali Farhadian_[GitHub](https://github.com/alifrd)
-_Mir Saman Tajbakhsh_[Personal Website](http://sqlmap.org/)
-_UUT_[Website](http://uut.ac.ir/)
+_Ali Farhadian_[ GitHub ](https://github.com/alifrd)
+_Mir Saman Tajbakhsh_[ Personal Website ](http://sqlmap.org/)
+_UUT_[ Website ](http://uut.ac.ir/)
 
 ##config file
 _at ./config file in config.json_
