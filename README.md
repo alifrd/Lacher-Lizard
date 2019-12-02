@@ -25,20 +25,20 @@ _UUT_[ Website ](http://uut.ac.ir/)<br />
 
 ## config file
 _at ./config file in config.json_<br />
-    *ProjectName : name of project<br />
-    *URL : url of project<br />
-    *Setting<br />
-        *Mode : SLOW / FAST (explore repeated urls signutre or repeated signture)<br />
-        *MiddleWare : NORMAL / PROXY / SOCKS (use my ip / proxy ip(in ./config/proxy.json) , each thread use one proxy that means you must set proxy in order to you'r setting threads / socks encrypte)<br />
-        *SIGN : DEPTH / NORMAL (explore sing state tree)<br />
-    *ThreadNumber : number of threads<br />
-    *SQLMAP : <br />
-        *manaul : for manual setting<br />
-        *threads : sqlmap app threads<br />
-        *timeout : time of app request , response timeout<br />
-        *answer : auto answer question of app<br />
-    *XSS :<br />
-        *path : path directory of arachni file<br />
-        *manual : for manual setting<br />
+    * ProjectName : name of project<br />
+    * URL : url of project<br />
+    * Setting<br />
+        * Mode : SLOW / FAST (explore repeated urls signutre or repeated signture)<br />
+        * MiddleWare : NORMAL / PROXY / SOCKS (use my ip / proxy ip(in ./config/proxy.json) , each thread use one proxy that means you must set proxy in order to you'r setting threads / socks encrypte)<br />
+        * SIGN : DEPTH / NORMAL (explore sing state tree)<br />
+    * ThreadNumber : number of threads<br />
+    * SQLMAP : <br />
+        * manaul : for manual setting<br />
+        * threads : sqlmap app threads<br />
+        * timeout : time of app request , response timeout<br />
+        * answer : auto answer question of app<br />
+    * XSS :<br />
+        * path : path directory of arachni file<br />
+        * manual : for manual setting<br />
 
 **Honsty Will Guide You To Goodness , And Goodness Will Invite You To Heaven   ~Imam Ali**
