@@ -1,5 +1,6 @@
 from urllib.parse import urlparse
 import time
+from re import findall
 
 def getSign(url,signMode):
     path = urlparse(url).path
@@ -81,5 +82,16 @@ def getpattern(urlpath,flag,signMode):
                 pattern += "non"
                 sign += "non"
 
-    
     return sign[1:],pattern
+
+
+
+def get_sql_mark(url):
+    url = url+"/"
+    filter1=findall('\=[0-9]+', url)
+    filter2=findall('/[0-9]+/', url)
+    for i in filter1:
+        url = url.replace(i,"=*")
+    for i in filter2:
+        url = url.replace(i,"/*/")
+    return url

@@ -1,9 +1,8 @@
-import threading
+from threading import Thread,current_thread
 from queue import Queue
 from spider import Spider
 from domain import *
 from general import *
-import requests
 
 with open('./config/config.json', 'r') as myfile:
     data=myfile.read()
@@ -25,7 +24,7 @@ Spider(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME , MODE , MIDDLE_WARE , SIGN_MODE)
 # Create worker threads (will die when main exits)
 def create_workers():
     for _ in range(NUMBER_OF_THREADS):
-        t = threading.Thread(target=work)
+        t = Thread(target=work)
         t.daemon = True
         t.start()
 
@@ -34,7 +33,7 @@ def create_workers():
 def work():
     while True:
         url = queue.get()
-        Spider.crawl_page(threading.current_thread().name, url)
+        Spider.crawl_page(current_thread().name, url)
         queue.task_done()
 
 

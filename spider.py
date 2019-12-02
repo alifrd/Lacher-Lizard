@@ -3,11 +3,10 @@ from domain import *
 from general import *
 from domain import *
 from url_sign import getSign
-import requests
+from requests import get,session
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
-from time import time;
-import logging
+from time import time
 from random import randint
 
 
@@ -56,12 +55,6 @@ class Spider:
         self.crawl_page('First spider', Spider.base_url)
 
 
-
-    #    path = project_name+"/"+"logfile.log"
-    #    logging.basicConfig(filename=path, filemode="w",
-    #                    format='%(asctime)s %(message)s')
-    #    logger=logging.getLogger() 
-    #    logger.setLevel(logging.DEBUG) 
     
 
     # Creates directory and files for project on first run and starts the spider
@@ -89,24 +82,24 @@ class Spider:
             urlpart = "non"
         
         if page_url not in Spider.crawled:
-            print(thread_name + ' now crawling ' + page_url)
-            print('All urls ' + str(Spider.urlCount) +' | Queue ' + str(len(Spider.queue)) + ' | Crawled  ' + str(len(Spider.crawled))+ ' | Target  ' + str(len(Spider.target))+ ' | ERR  ' + str(Spider.errors) +" | "+ time_convert(time() - Spider.startTime)) 
+            print("\033[91m => \033[0m \033[01m"+thread_name + '\033[0m now crawling ' + page_url)
+            print('\033[94m => \033[0m All urls ' + str(Spider.urlCount) +' | \033[34m Queue ' + str(len(Spider.queue)) + ' \033[0m | Crawled  ' + str(len(Spider.crawled))+ ' | \033[92m Target  ' + str(len(Spider.target))+ ' \033[0m | \033[1;31m ERR  ' + str(Spider.errors) +" \033[0m | \u001b[36m"+ time_convert(time() - Spider.startTime)+"\033[0m") 
             
-            Spider.add_links_to_queue(Spider.gather_links(page_url))
+            Spider.routing_urls(Spider.gather_links(page_url))
             
             if urlpart != "non":
                 Spider.queue.remove(urlpart+" | "+timestamp+" | "+page_url)
             else:
                 Spider.queue.remove(page_url)
             
-            
             Spider.crawled.add(page_url)
             Spider.update_files()
+
+        if len(Spider.queue) <= 0:
+            print("\n::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+            print('*END* \033[94m => \033[0m All urls ' + str(Spider.urlCount) +' | \033[34m Queue ' + str(len(Spider.queue)) + ' \033[0m | Crawled  ' + str(len(Spider.crawled))+ ' | \033[92m Target  ' + str(len(Spider.target))+ ' \033[0m | \033[1;31m ERR  ' + str(Spider.errors) +" \033[0m | \u001b[36m"+ time_convert(time() - Spider.startTime)+"\033[0m") 
+            print("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
         
-
-
-            #    logging.info(thread_name + ' now crawling ' + page_url)
-            #    logging.info('Queue ' + str(len(Spider.queue)) + ' | Crawled  ' + str(len(Spider.crawled)))
         
     
 
@@ -120,29 +113,26 @@ class Spider:
             num = "1"
 
         try:
-            session = requests.Session()
-            retry = Retry(connect=3, backoff_factor=Spider.backoff)
+            Session = session()
+            retry = Retry(connect=3, backoff_factor=(randint(1,6)/10))
             adapter = HTTPAdapter(max_retries=retry)
-            session.mount('http://', adapter)
-            session.mount('https://', adapter)
+            Session.mount('http://', adapter)
+            Session.mount('https://', adapter)
             if Spider.proxyMode == "NORMAL":
-                response = session.get(page_url)
+                response = get(page_url , timeout=3)
             elif Spider.proxyMode == "PROXY" :
-                response = session.get(page_url ,  proxies=Spider.sslproxies[num])
+                print("\033[91m => \033[0m Dest IP :"+Spider.sslproxies[num]['http'])
+                response = get(page_url ,  proxies=Spider.sslproxies[num] , timeout=5)
             elif Spider.proxyMode == "SOCKS":
-                response = requests.get(page_url ,  proxies=Spider.socksproxies)
+                response = get(page_url ,  proxies=Spider.socksproxies , timeout=10)
             finder = LinkFinder(Spider.base_url, page_url)
             finder.feed(response.text)
 
             
         except Exception as e:
-            print(e)
+            print("\033[1;31m => ERR : \033[0m"+str(e))
             Spider.errors += 1
-            randBackOff = (randint(1,6)/10)
-            if(randBackOff != Spider.backoff):
-                Spider.backoff = randBackOff
-                print("----> NEW BACKOFF IS "+str(randBackOff)+"<----")
-         #    logging.info(str(e))
+            
             return set()
         return finder.page_links()
  
@@ -152,7 +142,7 @@ class Spider:
 
     # Saves queue data to project files
     @staticmethod
-    def add_links_to_queue(links):
+    def routing_urls(links):
         for url in links:
            
             Spider.urlCount += 1
@@ -161,16 +151,16 @@ class Spider:
                     Spider.otherUrl.add(url)
                 else:
                     base_url = get_prefix_sub_domain_name(url)
-                    Spider.routing_urls(base_url,url,Spider.searchMode)
+                    Spider.queued_urls(base_url,url,Spider.searchMode)
                 
             else:
-                Spider.routing_urls(Spider.base_url,url,Spider.searchMode)
+                Spider.queued_urls(Spider.base_url,url,Spider.searchMode)
 
 
         
 
     @staticmethod
-    def routing_urls(base_url,url,mode):
+    def queued_urls(base_url,url,mode):
         sign = getSign(url,Spider.signMode)
         urlsign = base_url+sign
         flag = 0                
