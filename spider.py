@@ -130,7 +130,11 @@ class Spider:
 
             
         except Exception as e:
-            print("\033[1;31m => ERR : \033[0m"+str(e))
+            if Spider.proxyMode == "PROXY" :
+                print("\033[1;31m => ERR in "+Spider.sslproxies[num]['http']+" :  \033[0m"+str(e))
+            else:
+                print("\033[1;31m => ERR :  \033[0m"+str(e))
+            
             Spider.errors += 1
             
             return set()

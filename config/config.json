@@ -1,12 +1,12 @@
 {
-    "ProjectName" : "uut fast norm depth",
-    "URL" : "http://uut.ac.ir/",
+    "ProjectName" : "khabar SSD",
+    "URL" : "https://www.shahrekhabar.com/",
     "Setting" : { 
-        "Mode" : "FAST" ,
-        "MiddleWare" : "NORMAL",
+        "Mode" : "SLOW" ,
+        "MiddleWare" : "SOCKS",
         "Sign" : "DEPTH"
     },
-    "ThreadNumber" : 10,
+    "ThreadNumber" : 3,
     "SQLMAP" : {
         "manual" : "",
         "threads" : "10",
