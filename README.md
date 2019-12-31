@@ -1,4 +1,6 @@
 
+![](./Lacher_Lizard_Logo.png)
+
 # Security Crawler
 
 ## About
