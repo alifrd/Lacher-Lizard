@@ -43,5 +43,4 @@ _at ./config file in config.json_<br />
         * path : path directory of arachni file<br />
         * manual : for manual setting<br />
 
-**Ask and You Will learn**
-                           ~Imam Ali
+**Ask and You Will learn** \n\t\t\t\t\t~Imam Ali
