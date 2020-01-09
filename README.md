@@ -43,4 +43,4 @@ _at ./config file in config.json_<br />
         * path : path directory of arachni file<br />
         * manual : for manual setting<br />
 
-**Honsty Will Guide You To Goodness , And Goodness Will Invite You To Heaven   ~Imam Ali**
+**Ask and You Will learn   ~Imam Ali**
