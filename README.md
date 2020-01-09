@@ -44,4 +44,4 @@ _at ./config file in config.json_<br />
         * manual : for manual setting<br />
 
 **Ask and You Will learn**
-~Imam Ali
+                           ~Imam Ali
