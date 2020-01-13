@@ -14,7 +14,7 @@ _crawler core written from bucky roberts Spider's (Most of it changed) and sql i
 
 _Spider_[ GitHub ](https://github.com/buckyroberts/Spider)<br />
 _Sqlmap_[ GitHub ](http://sqlmap.org/)<br />
-_Xss_[ GitHub ](http://sqlmap.org/)<br />
+_Arachni_[ Site ](https://www.arachni-scanner.com/)<br />
 
 
 ## About US
@@ -22,7 +22,7 @@ _i'm Ali Farhadian who are coding of this Thesis project of UUT university_<br /
 _this project Supervisor Professor Mir Saman Tajbakhsh who are give the first idea about it..._<br />
 
 _Ali Farhadian_[ GitHub ](https://github.com/alifrd)<br />
-_Mir Saman Tajbakhsh_[ Personal Website ](http://sqlmap.org/)<br />
+_Mir Saman Tajbakhsh_[ Personal Website ](https://mstajbakhsh.ir/)  _[ GitHub ](https://github.com/mirsamantajbakhsh)<br />
 _UUT_[ Website ](http://uut.ac.ir/)<br />
 
 ## config file
