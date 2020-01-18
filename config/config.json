@@ -1,0 +1,23 @@
+{
+    "ProjectName" : "arsenal SSN",
+    "URL" : "http://arsenal.ir/",
+    "Setting" : { 
+        "Mode" : "SLOW" ,
+        "MiddleWare" : "SOCKS",
+        "Sign" : "DEPTH"
+    },
+    "ThreadNumber" : 3,
+    "SQLMAP" : {
+        "manual" : "",
+        "threads" : "10",
+        "timeout" : "15",
+        "answer" : "keep testing=Y,sitemap=Y,skip further tests=N",
+        "_COMMNET" : "manual : for user syntax when fill it disable other config sach as thread,timeout,answer,batch | thread : number of active thread for sqlmap(max 10) | timeout : dead time request for sqlmap | answer : defualt answer for more qeustions"
+    },
+    "XSS" : {
+        "path" : "./include/arachni/bin/",
+        "manual" : "./arachni [url] --checks=xss* --http-request-timeout=5000 --http-request-concurrency=40 --output-only-positives --scope-page-limit=1",
+        "__COMMENT" : "path : path of aranchi file in bin directory | manual : syntax of execute (url repalce in program)"
+    },
+    "_COMMNET" : "Mode : SLOW or FAST  |  MiddleWare : NORMAL or PROXY or SOCKS | SIGN : NORMAL or DEPTH"
+}
